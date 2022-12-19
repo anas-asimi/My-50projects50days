@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotating Navigation Animation</title>
+</head>
+
+<body>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            /* transition: all 0.6s; */
+        }
+
+        body {
+            position: relative;
+            min-height: 100vh;
+            width: 100vw;
+            overflow-x: hidden;
+            background-color: black;
+            overflow: hidden;
+        }
+
+        .menuToggler {
+            z-index: 1;
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            top: 0px;
+            left: 0px;
+            translate: -40% -40%;
+            height: 240px;
+            width: 240px;
+            border-radius: 100%;
+            background-color: coral;
+            transform-origin: 50% 50%;
+            transition: all 0.5s;
+
+        }
+
+        .menuToggler.opened {
+            rotate: -90deg;
+        }
+
+        .menuToggler>div {
+            height: 100%;
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        .menuToggler>div>div:first-child {
+            position: absolute;
+            right: 20%;
+            bottom: 20%;
+        }
+
+        .menuToggler>div>div:last-child {
+            position: absolute;
+            left: 20%;
+            bottom: 20%;
+        }
+
+        nav {
+            position: absolute;
+            left: 0;
+            top: 50vh;
+            translate: -100%;
+            transition: all 0.5s;
+        }
+
+        nav.opened {
+            translate: 10%;
+            transition: all 0.5s .5s;
+        }
+
+        nav ul li {
+            font-size: xx-large;
+            padding: 4px 8px;
+            color: white;
+        }
+
+        main {
+            height: 200vh;
+            width: 100%;
+            padding: 0 64px;
+            padding-top: 160px;
+            font-size: large;
+            line-height: 32px;
+            background-color: aliceblue;
+            transform-origin: 0% 0%;
+            transition: all 0.5s;
+        }
+
+        main.opened {
+            rotate: -25deg;
+        }
+    </style>
+    <!--  -->
+    <div class="menuToggler">
+        <div>
+            <div class="menu-open"><i class="fa-solid fa-bars fa-2xl"></i></div>
+            <div class="menu-close"><i class="fa-solid fa-x fa-2xl"></i></div>
+        </div>
+
+    </div>
+    <nav class="">
+        <ul>
+            <li>Home</li>
+            <li>About</li>
+            <li>Contact</li>
+        </ul>
+    </nav>
+    <main class="">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium quia in ratione dolores cupiditate, maxime
+        aliquid
+        impedit dolorem nam dolor omnis atque fuga labore modi veritatis porro laborum minus, illo, maiores recusandae
+        cumque
+        ipsa quos. Tenetur, consequuntur mollitia labore pariatur sunt quia harum aut. Eum maxime dolorem provident
+        natus
+        veritatis molestiae cumque quod voluptates ab non, tempore cupiditate? Voluptatem, molestias culpa. Corrupti,
+        laudantium
+        iure aliquam rerum sint nam quas dolor dignissimos in error placeat quae temporibus minus optio eum soluta
+        cupiditate!
+        Cupiditate saepe voluptates laudantium. Ducimus consequuntur perferendis consequatur nobis exercitationem
+        molestias
+        fugiat commodi omnis. Asperiores quia tenetur nemo ipsa.
+        <hr>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium quia in ratione dolores cupiditate, maxime
+        aliquid
+        impedit dolorem nam dolor omnis atque fuga labore modi veritatis porro laborum minus, illo, maiores recusandae
+        cumque
+        ipsa quos. Tenetur, consequuntur mollitia labore pariatur sunt quia harum aut. Eum maxime dolorem provident
+        natus
+        veritatis molestiae cumque quod voluptates ab non, tempore cupiditate? Voluptatem, molestias culpa. Corrupti,
+        laudantium
+        iure aliquam rerum sint nam quas dolor dignissimos in error placeat quae temporibus minus optio eum soluta
+        cupiditate!
+        Cupiditate saepe voluptates laudantium. Ducimus consequuntur perferendis consequatur nobis exercitationem
+        molestias
+        fugiat commodi omnis. Asperiores quia tenetur nemo ipsa.
+        <hr>
+    </main>
+    <!--  -->
+    <script src="https://kit.fontawesome.com/45e02735af.js" crossorigin="anonymous"></script>
+    <script>
+
+        let mainContent = document.querySelector('main')
+        let menuToggler = document.querySelector('.menuToggler')
+        let nav = document.querySelector('nav')
+
+        document.querySelector('.menu-open').onclick = () => {
+            mainContent.classList.add('opened')
+            menuToggler.classList.add('opened')
+            nav.classList.add('opened')
+        }
+        document.querySelector('.menu-close').onclick = () => {
+            mainContent.classList.remove('opened')
+            menuToggler.classList.remove('opened')
+            nav.classList.remove('opened')
+        }
+
+
+
+    </script>
+</body>
+
+</html>
