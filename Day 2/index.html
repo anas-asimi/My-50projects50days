@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expanding Cards</title>
+</head>
+
+<body>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .container {
+            width: 400px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-direction: row;
+        }
+
+        .container .progress-bar {
+            width: 0%;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            translate: 0 -50%;
+            height: 3px;
+            z-index: -1;
+            background-color: cornflowerblue;
+            transition: all 0.5s;
+        }
+
+        .container .stage {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: aliceblue;
+            height: 40px;
+            width: 40px;
+            border-radius: 100%;
+            border: 3px solid lightgrey;
+            transition: all 0.5s;
+        }
+
+        .container .stage.active {
+            border-color: cornflowerblue;
+        }
+
+        .controller {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .controller button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 32px;
+            width: 100px;
+            background-color: cornflowerblue;
+            color: white;
+            font-size: medium;
+            border: none;
+            border-radius: 4px;
+            transition: all 0.5s;
+        }
+
+        .controller button.disabled {
+            background-color: lightgrey;
+            cursor: not-allowed;
+        }
+    </style>
+    <!--  -->
+    <div class="container">
+        <div class="progress-bar"></div>
+        <div class="stage">1</div>
+        <div class="stage">2</div>
+        <div class="stage">3</div>
+        <div class="stage">4</div>
+    </div>
+    <div class="controller">
+        <button class="prev">Prev</button>
+        <button class="next">Next</button>
+    </div>
+    <!--  -->
+    <script>
+
+        // destruction
+        let [prevButton, nextButton] = Array.from(document.querySelectorAll('.controller > button'))
+        // all logic and variables private inside this IIFE
+        let progressStat = (() => {
+            let circles = document.querySelectorAll('.stage')
+            let progressBar = document.querySelector('.progress-bar')
+            let state = 1
+
+            function update() {
+                if (state > 4) { return state-- }
+                if (state < 1) { return state++ }
+                progressBar.style.width = `${(state * 33) - 33}%`
+                circles.forEach((circle) => {
+                    circle.classList.remove('active')
+                })
+                Array.from(circles).slice(0, state).forEach((circle) => {
+                    circle.classList.add('active')
+                })
+                nextButton.classList.remove('disabled')
+                prevButton.classList.remove('disabled')
+                if (state == 4) {
+                    nextButton.classList.add('disabled')
+                }
+                if (state == 1) {
+                    prevButton.classList.add('disabled')
+                }
+            }
+            // run it to intialize
+            update()
+            // return setters
+            return {
+                next: () => {
+                    state++
+                    update()
+                },
+                prev: () => {
+                    state--
+                    update()
+                }
+            }
+            // everything is perfect now
+        })()
+
+        nextButton.addEventListener('click', () => { progressStat.next() })
+        prevButton.addEventListener('click', () => { progressStat.prev() })
+
+    </script>
+</body>
+
+</html>
