@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blurry Loading</title>
+</head>
+
+<body>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            position: relative;
+            height: 100%;
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container .image {
+            height: 100%;
+            width: 100%;
+
+            background: url(https://picsum.photos/1366/625) no-repeat center center/cover;
+
+            filter: blur(25px);
+        }
+
+        .container p {
+            position: absolute;
+            color: white;
+            font-size: 80px;
+            opacity: 1;
+        }
+    </style>
+    <!--  -->
+    <div class="container">
+        <div class="image"></div>
+        <p><span>100</span>%</p>
+    </div>
+    <!--  -->
+    <script src="https://kit.fontawesome.com/45e02735af.js" crossorigin="anonymous"></script>
+    <script>
+        let imageBg = document.querySelector('.image')
+        let text = document.querySelector('.container p span')
+        setTimeout(() => {
+            let myInterval = setInterval(() => {
+                if (text.textContent == 0) {
+                    return clearInterval(myInterval)
+                }
+                text.textContent--;
+                imageBg.style.filter = `blur(${text.textContent / 4}px)`;
+                text.parentElement.style.opacity = `${text.textContent / 100}`;
+            }, 40)
+        }, 1000)
+
+
+    </script>
+</body>
+
+</html>
