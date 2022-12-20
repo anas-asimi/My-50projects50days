@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Keycodes</title>
+</head>
+
+<body>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Muli', sans-serif;
+            ;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background-color: rgb(161, 100, 223);
+        }
+
+        .tip {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 0 56px;
+            background-color: white;
+            border-radius: 4px;
+            font-size: x-large;
+            font-weight: bold;
+        }
+
+        .box {
+            width: 200px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            background-color: white;
+            border-radius: 4px;
+            font-size: x-large;
+            font-weight: bold;
+        }
+
+        .key-data {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .container p {
+            color: white;
+            font-size: large;
+        }
+
+        .hidden{
+            display: none ;
+        }
+        
+    </style>
+    <!--  -->
+    <div class="tip">
+        Press Any key to get the Key code.
+    </div>
+
+    <div class="key-data hidden">
+        <div class="container">
+            <p>event.key</p>
+            <div id="key" class="box">test</div>
+        </div>
+        <div class="container">
+            <p>event.keyCode</p>
+            <div id="keyCode" class="box">test</div>
+        </div>
+        <div class="container">
+            <p>event.code</p>
+            <div id="code" class="box">test</div>
+        </div>
+    </div>
+    <!--  -->
+    <script>
+
+        
+        let hidden
+        window.onkeyup = function ({ key, keyCode, code }) {
+            document.getElementById('key').innerHTML = key
+            document.getElementById('keyCode').innerHTML = keyCode
+            document.getElementById('code').innerHTML = code 
+            if (!hidden) {
+                document.querySelector('.tip').classList.toggle('hidden')
+                document.querySelector('.key-data').classList.toggle('hidden')
+                hidden = true
+            }
+        }
+
+
+
+    </script>
+</body>
+
+</html>
