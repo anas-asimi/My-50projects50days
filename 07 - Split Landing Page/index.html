@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Split Landing Page</title>
+</head>
+
+<body>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        .container {
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 8px;
+            color: white;
+            transition: all 1s;
+        }
+
+        .one {
+            background: url(https://50projects50days.com/projects/split-landing-page/ps.jpg) no-repeat center center/cover;
+        }
+
+        .two {
+            background: url(https://50projects50days.com/projects/split-landing-page/xbox.jpg) no-repeat center center/cover;
+        }
+
+        .one::before {
+            position: absolute;
+            z-index: 0;
+            content: '';
+            height: 100%;
+            width: 100%;
+            background-color: rgb(87, 84, 236);
+            opacity: 0.7;
+        }
+
+        .two::before {
+            position: absolute;
+            z-index: 0;
+            content: '';
+            height: 100%;
+            width: 100%;
+            background-color: rgb(43, 43, 43);
+            opacity: 0.7;
+        }
+
+        .expanded {
+            flex: 3;
+        }
+
+        .container p {
+            width: 500px;
+            text-align: center;
+            font-size: 64px;
+            z-index: 1;
+        }
+
+        .container button {
+            height: 60px;
+            width: 200px;
+            z-index: 1;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: large;
+            background-color: transparent;
+            border: 4px white solid;
+            color: white;
+
+            margin-bottom: 64px;
+        }
+
+        .one button:hover{
+            border-color: rgb(87, 84, 236);
+            background-color: rgb(87, 84, 236);
+        }
+
+        .two button:hover{
+            border-color: rgb(28, 122, 28);
+            background-color: rgb(28, 122, 28);
+        }
+
+    </style>
+    <!--  -->
+    <div class="container one">
+        <p>Playstation 5</p>
+        <button>BUY NOW</button>
+    </div>
+    <div class="container two">
+        <p>XBox Series X</p>
+        <button>BUY NOW</button>
+    </div>
+    <!--  -->
+    <script>
+        let containers = document.querySelectorAll('.container')
+
+
+        containers.forEach((container) => {
+            container.addEventListener('mouseover', () => {
+                container.classList.add('expanded')
+            })
+            container.addEventListener('mouseout', () => {
+                container.classList.remove('expanded')
+            })
+        })
+
+    </script>
+</body>
+
+</html>
