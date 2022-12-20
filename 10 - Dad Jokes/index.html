@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dad Jokes</title>
+</head>
+
+<body>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Muli', sans-serif;
+            ;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background-color: rgb(161, 100, 223);
+        }
+
+        .container {
+            width: 600px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 32px;
+
+            padding: 32px 32px;
+            background-color: white;
+            border-radius: 8px;
+            font-size: x-large;
+        }
+
+        h5 {
+            text-align: center;
+            color: darkgray;
+        }
+
+        p {
+            text-align: center;
+        }
+
+        button {
+            padding: 12px 32px;
+            border-radius: 8px;
+            background-color: rgb(161, 100, 223);
+            border: none;
+            color: white;
+            font-size: large;
+        }
+    </style>
+    <!--  -->
+    <div class="container">
+        <h5>Don't Laugh Challenge</h5>
+        <p id="joke"></p>
+        <button id="jokeButton">Get another joke</button>
+    </div>
+    <!--  -->
+    <script>
+
+        let getJoke = async () => {
+            let jokeElement = document.getElementById('joke')
+            let config = {
+                headers: {
+                    Accept: 'application/json',
+                }
+            }
+            let res = await fetch('https://icanhazdadjoke.com', config)
+            let data = await res.json()
+            jokeElement.innerHTML = data.joke
+        }
+        getJoke()
+        let jokeButton = document.getElementById('jokeButton')
+        jokeButton.onclick = getJoke
+
+    </script>
+</body>
+
+</html>
