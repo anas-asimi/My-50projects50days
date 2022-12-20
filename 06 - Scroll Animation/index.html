@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll Animation</title>
+</head>
+
+<body>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-direction: column;
+        }
+
+        p {
+            font-size: xx-large;
+        }
+
+        .container {
+            overflow-x: hidden;
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 16px;
+
+            padding: 32px 0px;
+        }
+
+        .container .box {
+            height: 200px;
+            width: 360px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background-color: cornflowerblue;
+            border-radius: 16px;
+            color: white;
+            font-size: xx-large;
+
+            transition: all 0.5s;
+            translate: -100vw;
+        }
+
+        .container .box:nth-of-type(even) {
+            translate: 100vw;
+        }
+
+        .container .box.show {
+            translate: 0vw;
+        }
+    </style>
+    <!--  -->
+    <p>Scroll to see the animation</p>
+    <div class="container">
+        <div class="box">content</div>
+        <div class="box">content</div>
+        <div class="box">content</div>
+        <div class="box">content</div>
+        <div class="box">content</div>
+        <div class="box">content</div>
+        <div class="box">content</div>
+        <div class="box">content</div>
+        <div class="box">content</div>
+        <div class="box">content</div>
+        <div class="box">content</div>
+        <div class="box">content</div>
+        <div class="box">content</div>
+        <div class="box">content</div>
+        <div class="box">content</div>
+        <div class="box">content</div>
+        <div class="box">content</div>
+        <div class="box">content</div>
+        <div class="box">content</div>
+        <div class="box">content</div>
+    </div>
+    <!--  -->
+    <script src="https://kit.fontawesome.com/45e02735af.js" crossorigin="anonymous"></script>
+    <script>
+        let boxs = Array.from(document.querySelectorAll('.box')).map((box) => {
+            let position = box.getBoundingClientRect();
+            return {
+                element: box,
+                y: position.y + (position.height * 0.9),
+            }
+        })
+
+        function update() {
+            boxs.forEach((box) => {
+                if (window.scrollY + window.innerHeight > box.y) {
+                    box.element.classList.add('show')
+                }
+                if (window.scrollY + window.innerHeight < box.y) {
+                    box.element.classList.remove('show')
+                }
+            })
+        }
+
+        update()
+
+        window.onscroll = update
+
+
+    </script>
+</body>
+
+</html>
