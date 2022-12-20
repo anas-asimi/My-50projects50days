@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sound Board</title>
+</head>
+
+<body>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Muli', sans-serif;
+            ;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            align-content: center;
+            flex-wrap: wrap;
+            gap: 16px;
+
+            background-color: rgb(161, 100, 223);
+        }
+
+        .box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 32px 56px;
+            background-color: rebeccapurple;
+            border-radius: 4px;
+            color: white;
+            font-size: x-large;
+        }
+
+    </style>
+    <!--  -->
+    <audio id="applause" src="https://50projects50days.com/projects/sound-board/sounds/applause.mp3"></audio>
+    <audio id="boo" src="https://50projects50days.com/projects/sound-board/sounds/boo.mp3"></audio>
+    <audio id="gasp" src="https://50projects50days.com/projects/sound-board/sounds/gasp.mp3"></audio>
+    <audio id="tada" src="https://50projects50days.com/projects/sound-board/sounds/tada.mp3"></audio>
+    <audio id="victory" src="https://50projects50days.com/projects/sound-board/sounds/victory.mp3"></audio>
+    <audio id="wrong" src="https://50projects50days.com/projects/sound-board/sounds/wrong.mp3"></audio>
+    <!--  -->
+    <div class="box">applause</div>
+    <div class="box">boo</div>
+    <div class="box">gasp</div>
+    <div class="box">tada</div>
+    <div class="box">victory</div>
+    <div class="box">wrong</div>
+    <!--  -->
+    <script>
+        let buttons = document.querySelectorAll('.box')
+        buttons.forEach((button)=>{
+            button.onclick = ()=>{
+                document.querySelectorAll('audio').forEach((audio)=>{
+                    audio.pause();
+                    audio.currentTime = 0;
+                })
+                document.getElementById(button.textContent).play()
+            }
+        })
+    </script>
+</body>
+
+</html>
