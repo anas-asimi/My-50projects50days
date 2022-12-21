@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faq Collapse</title>
+</head>
+
+<body>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Muli', sans-serif;
+        }
+
+        body {
+            width: 100vw;
+            overflow-x: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-direction: column;
+            gap: 24px;
+            padding: 64px 0;
+            background-color: rgb(161, 100, 223);
+        }
+
+        h1 {
+            color: white;
+        }
+
+        .container {
+            width: 500px;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            gap: 32px;
+            padding: 48px;
+            border: 2px solid white;
+            border-radius: 8px;
+            color: white;
+            overflow: hidden;
+
+        }
+
+        .container .question {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: large;
+            font-weight: bolder;
+        }
+
+        .container .question button {
+            background-color: transparent;
+            border: none;
+            outline: none;
+            color: white;
+            font-size: large;
+            font-weight: bold;
+        }
+
+        .container.active {
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .container .answer {
+            display: none;
+        }
+
+        .container.active .answer {
+            display: block;
+        }
+
+        .container .close {
+            display: none;
+        }
+
+        .container.active .close {
+            display: block;
+        }
+
+        .container.active .open {
+            display: none;
+        }
+
+
+    </style>
+    <!--  -->
+    <h1>Frequently Asked Questions</h1>
+    <div class="container">
+        <div class="question">
+            <p>Why shouldn't we trust atoms?</p>
+            <a class="open"><i class="fa-solid fa-caret-down fa-xl"></i></a>
+            <a class="close"><i class="fa-solid fa-x"></i></a>
+        </div>
+        <div class="answer">
+            They make up everything
+        </div>
+    </div>
+    <div class="container">
+        <div class="question">
+            <p>What do you call someone with no body and no nose?</p>
+            <a class="open"><i class="fa-solid fa-caret-down fa-xl"></i></a>
+            <a class="close"><i class="fa-solid fa-x"></i></a>
+        </div>
+        <div class="answer">
+            Nobody knows.
+        </div>
+    </div>
+    <div class="container">
+        <div class="question">
+            <p>What's the object-oriented way to become wealthy?</p>
+            <a class="open"><i class="fa-solid fa-caret-down fa-xl"></i></a>
+            <a class="close"><i class="fa-solid fa-x"></i></a>
+        </div>
+        <div class="answer">
+            Inheritance.
+        </div>
+    </div>
+    <div class="container">
+        <div class="question">
+            <p>How many tickles does it take to tickle an octopus?</p>
+            <a class="open"><i class="fa-solid fa-caret-down fa-xl"></i></a>
+            <a class="close"><i class="fa-solid fa-x"></i></a>
+        </div>
+        <div class="answer">
+            Ten-tickles!
+        </div>
+    </div>
+    <div class="container">
+        <div class="question">
+            <p>What is: 1 + 1?</p>
+            <a class="open"><i class="fa-solid fa-caret-down fa-xl"></i></a>
+            <a class="close"><i class="fa-solid fa-x"></i></a>
+        </div>
+        <div class="answer">
+            Depends on who are you asking.
+        </div>
+    </div>
+    <!--  -->
+    <script src="https://kit.fontawesome.com/45e02735af.js" crossorigin="anonymous"></script>
+
+    <script>
+        let buttons = document.querySelectorAll('.question a')
+        buttons.forEach((button) => {
+            button.onclick = () => {
+                button.parentElement.parentElement.classList.toggle('active')
+            }
+        })
+    </script>
+</body>
+
+</html>
