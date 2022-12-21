@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Navigation</title>
+</head>
+
+<body>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background-color: darkcyan;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 64px;
+            color: white;
+        }
+
+        .container>div {
+            width: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .container .logo {
+            height: 80px;
+            width: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            scale: 3;
+        }
+
+        .container .count {
+            font-size: 70px;
+            font-family: monospace;
+        }
+
+        .container .text {
+            font-size: larger;
+        }
+    </style>
+    <!--  -->
+
+    <div class="container">
+        <div class="twitter">
+            <div class="logo"><i class="fa-brands fa-twitter fa-2xl"></i></div>
+            <p class="count">0</p>
+            <p class="text">Twitter Followers</p>
+        </div>
+        <div class="youtube">
+            <div class="logo"><i class="fa-brands fa-youtube fa-2xl"></i></div>
+            <p class="count">0</p>
+            <p class="text">YouTube Subscribers</p>
+        </div>
+        <div class="facebook">
+            <div class="logo"><i class="fa-brands fa-square-facebook fa-2xl"></i></div>
+            <p class="count">0</p>
+            <p class="text">Facebook Fans</p>
+        </div>
+    </div>
+    <!--  -->
+    <script src="https://kit.fontawesome.com/45e02735af.js" crossorigin="anonymous"></script>
+    <script>
+        let counts = [
+            { socialMedia: 'twitter', count: 12000 },
+            { socialMedia: 'youtube', count: 5000 },
+            { socialMedia: 'facebook', count: 7500 }]
+
+        counts.forEach((entitie) => {
+            let element = document.querySelector(`.${entitie.socialMedia} .count`)
+            let count = entitie.count;
+            let step = 1
+            let myInterval = setInterval(() => {
+                if (step > 100) { return clearInterval(myInterval) }
+                element.innerHTML = (count * step) / 100;
+                step++
+            }, 15)
+        })
+
+    </script>
+</body>
+
+</html>
