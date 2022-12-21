@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Choice Picker</title>
+</head>
+
+<body>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Muli', sans-serif;
+        }
+
+        body {
+            width: 100vw;
+            overflow-x: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 24px;
+            padding: 64px 0;
+            background-color: rgb(161, 100, 223);
+        }
+
+        h2 {
+            color: white;
+        }
+
+        textarea {
+            width: 500px;
+            height: 150px;
+            font-size: large;
+            padding: 16px;
+            outline: none;
+            border-radius: 4px;
+        }
+
+        .words {
+            width: 500px;
+            padding-top: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            gap: 16px;
+        }
+
+        .words span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: large;
+            background-color: coral;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 100px;
+        }
+
+        .words span.active {
+            background-color: cornflowerblue;
+        }
+    </style>
+    <!--  -->
+    <h2>Enter all of the choices divided by a comma (',').</h2>
+    <h2>Press enter when you're done</h2>
+    <div class="container">
+        <textarea id="text"></textarea>
+        <div class="words">
+        </div>
+    </div>
+    <!--  -->
+    <!-- <script src="https://kit.fontawesome.com/45e02735af.js" crossorigin="anonymous"></script> -->
+    <script>
+        let textarea = document.getElementById('text')
+        let wordsContainer = document.querySelector('.words')
+
+        textarea.onkeyup = (event) => {
+            if (event.key == 'Enter') {
+                textarea.value = ''
+                let myInterval = setInterval(()=>{
+                    randomChoice()
+                },200)
+                setTimeout(()=>{
+                    clearInterval(myInterval)
+                },2000)
+                return;
+            }
+            let wordsList = textarea.value.split(',').filter((word) => { return word != '' })
+            let elements = wordsList.map((word) => {
+                let element = document.createElement('span')
+                element.innerHTML = word
+                return element
+            })
+            wordsContainer.innerHTML = ''
+            elements.forEach(element => {
+                wordsContainer.append(element)
+            });
+        }
+        function randomChoice() {
+            let words = document.querySelectorAll('.words span')
+            if (words.length == 0) return;
+            words.forEach((word) => { word.classList.remove('active') });
+            let rand = Math.floor(words.length * Math.random());
+            words[rand].classList.add('active')
+        }
+    </script>
+</body>
+
+</html>
