@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme Clock</title>
+</head>
+
+<body>
+    <style>
+        :root {
+            --primary: rgb(245, 245, 245);
+            --secondary: rgb(20, 20, 20);
+            --red: rgb(255, 0, 0);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            user-select: none;
+        }
+
+        body.dark-mode {
+            --primary: rgb(20, 20, 20);
+            --secondary: rgb(245, 245, 245);
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background-color: var(--primary);
+            overflow: hidden;
+        }
+
+        .toggler {
+            position: absolute;
+            top: 80px;
+            background-color: var(--secondary);
+            color: var(--primary);
+            border: none;
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: small;
+        }
+
+        .clock-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .clock-container .clock {
+            position: relative;
+            height: 240px;
+            width: 240px;
+            border-radius: 100%;
+        }
+
+        .clock-container .clock .dot {
+            position: absolute;
+            height: 4px;
+            width: 4px;
+
+            box-sizing: content-box;
+            z-index: 10;
+            top: 50%;
+            left: 50%;
+            translate: -50% -50%;
+
+            background-color: var(--secondary);
+            border: 2px solid var(--red);
+            border-radius: 100%;
+        }
+
+        .clock-container .clock .needle-hour {
+            position: absolute;
+            width: 30%;
+            height: 3px;
+            border-radius: 16px;
+
+            top: 50%;
+            left: 50%;
+
+            transform-origin: 0% 50%;
+            transform: rotate(-90deg);
+            
+            background-color: var(--secondary);
+            transition: rotate 0.5s cubic-bezier(1, 0.26, 0.78, 1.46);
+        }
+
+        .clock-container .clock .needle-minutes {
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            border-radius: 16px;
+
+            top: 50%;
+            left: 50%;
+
+            transform-origin: 0% 50%;
+            transform: rotate(-90deg);
+
+            background-color: var(--secondary);
+            transition: rotate 0.5s cubic-bezier(1, 0.26, 0.78, 1.46);
+        }
+
+        .clock-container .clock .needle-seconds {
+            position: absolute;
+            width: 50%;
+            height: 2px;
+            border-radius: 16px;
+
+            top: 50%;
+            left: 50%;
+
+            transform-origin: 0% 50%;
+            transform: rotate(-90deg);
+
+            background-color: var(--red);
+            transition: rotate 0.5s cubic-bezier(1, 0.26, 0.78, 1.46);
+        }
+
+        .clock-container .time {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 64px;
+            font-weight: 300;
+            color: var(--secondary);
+        }
+
+        .clock-container .date {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: gray;
+        }
+
+        .clock-container .date span:last-child {
+            margin-left: 6px;
+            width: 24px;
+            height: 24px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: small;
+            border-radius: 4px;
+            background-color: var(--secondary);
+            color: var(--primary);
+        }
+    </style>
+    <!--  -->
+    <button class="toggler">Light Mode</button>
+    <div class="clock-container">
+        <div class="clock">
+            <div class="dot"></div>
+            <div class="needle-hour"></div>
+            <div class="needle-minutes"></div>
+            <div class="needle-seconds"></div>
+        </div>
+        <div class="time"></div>
+        <div class="date">
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <!--  -->
+    <!-- <script src="https://kit.fontawesome.com/45e02735af.js" crossorigin="anonymous"></script> -->
+    <script>
+
+        const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+        let toggler = document.querySelector('.toggler')
+
+        let time = document.querySelector('.clock-container .time')
+        let date = document.querySelector('.clock-container .date')
+        let day = document.querySelector('.clock-container .time span')
+
+        let needleHour = document.querySelector('.clock-container .needle-hour')
+        let needleMinutes = document.querySelector('.clock-container .needle-minutes')
+        let needleSeconds = document.querySelector('.clock-container .needle-seconds')
+
+        let hourRotaion = 0;
+        let minuteRotation = 0;
+        let secondRotation = 0;
+
+        toggler.onclick = () => {
+            document.body.classList.toggle('dark-mode')
+        }
+
+        function update() {
+            let currentDate = new Date()
+
+            let second = currentDate.getSeconds();
+            let minute = currentDate.getMinutes() > 10 ? currentDate.getMinutes() : '0' + currentDate.getMinutes();
+            let hour = currentDate.getHours() < 12 ? currentDate.getHours() : currentDate.getHours() - 12;
+            let period = currentDate.getHours() < 12 ? 'AM' : 'PM';
+            time.textContent = hour + ':' + minute + " " + period
+
+            let day = weekday[currentDate.getDay()];
+            let month = months[currentDate.getMonth()];
+            let year = currentDate.getFullYear();
+            date.firstElementChild.textContent = day + ', ' + month;
+            date.lastElementChild.textContent = year.toString().slice(2);
+
+            if (hour == 0) hourRotaion++
+            if (minute == 0) minuteRotation++
+            if (second == 0) secondRotation++
+
+            needleHour.style.rotate = `${(hourRotaion*360)+((360 / 24) * hour)}deg`
+            needleMinutes.style.rotate = `${(minuteRotation * 360) +(360 / 60) * minute}deg`
+            needleSeconds.style.rotate = `${(secondRotation * 360) +(360 / 60) * second}deg`
+
+
+        }
+        update()
+        setInterval(update, 1000)
+
+    </script>
+</body>
+
+</html>
