@@ -4,4 +4,4 @@
 Day 1 : 3  
 Day 2 : 6  
 Day 3 : 7  
-Day 4 : 1  
+Day 4 : 2  
