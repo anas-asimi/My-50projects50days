@@ -94,7 +94,7 @@
 
             transform-origin: 0% 50%;
             transform: rotate(-90deg);
-            
+
             background-color: var(--secondary);
             transition: rotate 0.5s cubic-bezier(1, 0.26, 0.78, 1.46);
         }
@@ -223,9 +223,9 @@
             if (minute == 0) minuteRotation++
             if (second == 0) secondRotation++
 
-            needleHour.style.rotate = `${(hourRotaion*360)+((360 / 24) * hour)}deg`
-            needleMinutes.style.rotate = `${(minuteRotation * 360) +(360 / 60) * minute}deg`
-            needleSeconds.style.rotate = `${(secondRotation * 360) +(360 / 60) * second}deg`
+            needleHour.style.rotate = `${(hourRotaion * 360) + ((360 / 24) * hour)}deg`
+            needleMinutes.style.rotate = `${(minuteRotation * 360) + (360 / 60) * minute}deg`
+            needleSeconds.style.rotate = `${(secondRotation * 360) + (360 / 60) * second}deg`
 
 
         }

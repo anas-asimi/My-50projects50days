@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag N Drop</title>
+</head>
+
+<style>
+    * {
+        box-sizing: content-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+        user-select: none;
+    }
+
+    body {
+        height: 100vh;
+        width: 100vw;
+
+        display: flex;
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 32px;
+
+        background-color: steelblue;
+        overflow: hidden;
+    }
+
+    .empty {
+        position: relative;
+        height: 160px;
+        width: 160px;
+
+        background-color: white;
+        border: 3px solid black;
+    }
+
+    .hovered {
+        border: 3px solid black;
+        border-style: dashed;
+        background-color: crimson;
+    }
+
+    .fill {
+        position: absolute;
+        height: 160px;
+        width: 160px;
+
+        top: 50%;
+        left: 50%;
+        translate: -50% -50%;
+
+        background: url(https://picsum.photos/160);
+        background-color: white;
+        border: 3px solid black;
+        cursor: pointer;
+        overflow: hidden;
+    }
+
+    .dragged {
+        transition: 0.01s;
+        translate: 0 -900px;
+        opacity: 1;
+
+    }
+</style>
+
+<body>
+    <!--  -->
+    <div class="empty">
+        <div class="fill" draggable="true"></div>
+    </div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <!--  -->
+    <script>
+
+        let boxes = document.querySelectorAll('.empty')
+
+        for (const box of boxes) {
+            box.addEventListener('dragover', dragOver)
+            box.addEventListener('dragenter', dragEnter)
+            box.addEventListener('dragleave', dragLeave)
+            box.addEventListener('drop', dragDrop)
+        }
+
+        function dragOver(e) {
+            e.preventDefault()
+        }
+
+        function dragEnter(e) {
+            e.preventDefault()
+            this.className += ' hovered'
+        }
+
+        function dragLeave() {
+            this.className = 'empty'
+        }
+
+        function dragDrop() {
+            this.className = 'empty'
+            this.append(image)
+        }
+
+        const image = document.querySelector('.fill')
+        image.ondragstart = () => {
+            image.className = 'fill dragged'
+        }
+        image.ondragend = () => {
+            image.className = 'fill'
+        }
+    </script>
+    <!-- <script src="https://kit.fontawesome.com/45e02735af.js" crossorigin="anonymous"></script> -->
+</body>
+
+</html>
