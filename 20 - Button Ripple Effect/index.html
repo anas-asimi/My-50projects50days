@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Ripple Effect</title>
+</head>
+
+<body>
+    <style>
+        :root {
+            --primary: rgb(245, 245, 245);
+            --secondary: rgb(20, 20, 20);
+            --red: rgb(255, 0, 0);
+            --gradient : radial-gradient(circle, rgba(245,245,245,0.25) 0%, rgba(245,245,245,0.75) 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            user-select: none;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 24px;
+
+            background-color: var(--primary);
+            overflow: hidden;
+        }
+
+        body.dark-mode {
+            --primary: rgb(20, 20, 20);
+            --secondary: rgb(245, 245, 245);
+            --gradient : radial-gradient(circle, rgba(20,20,20,0.25) 0%, rgba(20,20,20,0.75) 100%);
+        }
+
+        button {
+            height: 56px;
+            width: 150px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background-color: var(--secondary);
+            color: var(--primary);
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: large;
+        }
+
+        .my-button{
+            position: relative;
+            overflow: hidden;
+            cursor: auto;
+        }
+
+        .my-button > div{
+            position: absolute;
+            height: 340px;
+            width: 340px;
+            content: '';
+            top: 50%;
+            left: 50%;
+            translate: -50% -50%;
+            transform-origin: 50% 50%;
+
+            background: var(--gradient);
+            border-radius: 100%;
+            scale: 0;
+            opacity: 1;
+            transition: none;
+        }
+
+        .my-button.active > div{
+            scale: 1;
+            opacity: 0;
+            transition: scale 0.6s , opacity 0.6s 0.2s;
+        }
+
+
+    </style>
+    <!--  -->
+    <button class="toggler">Light Mode</button>
+    <button class="my-button">Click me<div></div></button>
+    <!--  -->
+    <!-- <script src="https://kit.fontawesome.com/45e02735af.js" crossorigin="anonymous"></script> -->
+    <script>
+
+        let toggler = document.querySelector('.toggler')
+        toggler.onclick = () => {
+            document.body.classList.toggle('dark-mode')
+        }
+
+        let button = document.querySelector('.my-button')
+        button.onclick = (event)=>{
+
+            button.classList.remove('active')
+
+            let { offsetX , offsetY} = event
+            button.firstElementChild.style.left = `${offsetX}px`;
+            button.firstElementChild.style.top = `${offsetY}px`;
+            
+            setTimeout(()=>{ button.classList.add('active')})
+            
+        }
+
+    </script>
+</body>
+
+</html>
