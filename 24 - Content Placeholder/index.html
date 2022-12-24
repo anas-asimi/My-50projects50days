@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Placeholder</title>
+</head>
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: Tahoma, Verdana, sans-serif;
+        user-select: none;
+    }
+
+    body {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgb(240, 240, 240);
+    }
+
+    .container {
+        height: 300px;
+        width: 300px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.25);
+        background-color: white;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .image {
+        position: relative;
+        height: 150px;
+        overflow: hidden;
+    }
+
+    /* .image::after {
+        position: absolute;
+        content: '';
+        inset: 0 0 0 0;
+        background: linear-gradient(90deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 90%, rgba(0,0,0,0.25) 100%);
+    } */
+
+    .content {
+        height: 150px;
+        width: 100%;
+        padding: 8px 24px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .content .overview {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .content .overview .title {
+        width: 100%;
+        font-weight: bold;
+        font-size: 14px;
+        letter-spacing: 0.5px;
+    }
+
+    .content .overview .text {
+        width: 100%;
+        font-size: 12px;
+        letter-spacing: 0.5px;
+        color: rgb(100, 100, 100);
+    }
+
+    .content .author {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 16px;
+    }
+
+    .content .author img{
+        height: 40px;
+        width: 40px;
+        object-fit: contain;
+        border-radius: 100%;
+    }
+
+    .content .author .user-info .name{
+        width: 100%;
+        font-weight: bold;
+        font-size: 14px;
+        letter-spacing: 0.5px;
+    }
+
+    .content .author .user-info .date{
+        width: 100%;
+        font-size: 12px;
+        letter-spacing: 0.5px;
+        color: rgb(100, 100, 100);
+    }
+
+
+</style>
+
+<body>
+    <!--  -->
+    <div class="container">
+        <div class="image"><img src="https://picsum.photos/300/150"></div>
+        <div class="content">
+            <div class="overview">
+                <p class="title">Lorem ipsum dolor sit amet</p>
+                <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore perferendis</p>
+            </div>
+            <div class="author">
+                <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="">
+                <div class="user-info">
+                    <p class="name">John Doe</p>
+                    <p class="date">Oct 08, 2020</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--  -->
+    <script>
+
+    </script>
+    <!-- <script src="https://kit.fontawesome.com/45e02735af.js" crossorigin="anonymous"></script> -->
+</body>
+
+</html>
