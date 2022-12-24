@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sticky Navbar</title>
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Tahoma, Verdana, sans-serif;
+        list-style: none;
+        text-decoration: none;
+    }
+
+    body {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        color: white;
+    }
+
+    header {
+        position: fixed;
+        z-index: 2;
+        top: 0;
+        width: 100%;
+        height: 80px;
+        padding: 0 64px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: crimson;
+        transition: height 0.5s;
+    }
+
+    header.collapsed {
+        height: 48px;
+    }
+
+    header .logo {
+        font-size: xx-large;
+        letter-spacing: 1px;
+        font-weight: bold;
+    }
+
+    header nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 32px;
+    }
+
+    header nav a {
+        letter-spacing: 0.4px;
+        font-size: large;
+        color: white;
+    }
+
+    .home {
+        position: relative;
+        height: 100vh;
+        width: 100%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 32px;
+        padding: 0 80px;
+
+        background: no-repeat bottom center url('https://images.pexels.com/photos/450035/pexels-photo-450035.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+        background-size: cover;
+
+        letter-spacing: 0.4px;
+        line-height: 24px;
+        font-size: large;
+    }
+
+    .home>* {
+        z-index: 1;
+    }
+
+    .home::before {
+        position: absolute;
+        content: '';
+        inset: 0 0 0 0;
+        z-index: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+
+    }
+
+    .content {
+        max-width: 800px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        gap: 16px;
+        padding: 24px 0;
+        color: rgb(50, 50, 50);
+    }
+
+    .content p {
+        letter-spacing: 0.4px;
+        line-height: 24px;
+        font-size: large;
+
+    }
+</style>
+
+<body>
+    <!--  -->
+    <header class="">
+        <div class="logo">My Website</div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+    <div class="home">
+        <h1>Welcome To My Website</h1>
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores, consequuntur?</p>
+    </div>
+    <div class="content">
+        <h2>Content One</h2>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione dolorem voluptates eveniet tempora ut
+            cupiditate
+            magnam, sapiente, hic quo in ipsum iste soluta eaque perferendis nihil recusandae dolore officia aperiam
+            corporis
+            similique. Facilis quos tempore labore totam! Consectetur molestiae iusto ducimus error reiciendis
+            aspernatur dolor,
+            modi dolorem sit architecto, voluptate magni sunt unde est quas? Voluptates a dolorum voluptatum quo
+            perferendis aut
+            sit. Aspernatur libero laboriosam ab eligendi omnis delectus earum labore, placeat officiis sint illum rem
+            voluptas
+            ipsum repellendus iste eius recusandae quae excepturi facere, iure rerum sequi? Illum velit delectus dicta
+            et iste
+            dolorum obcaecati minus odio eligendi!
+        </p>
+    </div>
+    <div class="content">
+        <h2>Content Two</h2>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Pariatur provident nostrum possimus inventore nisi
+            laboriosam
+            consequatur modi nulla eos, commodi, omnis distinctio! Maxime distinctio impedit provident, voluptates illo
+            odio nostrum
+            minima beatae similique a sint sapiente voluptatum atque optio illum est! Tenetur tempora doloremque quae
+            iste aperiam
+            hic cumque repellat?</p>
+    </div>
+    <!--  -->
+    <script>
+        window.onscroll = (e)=>{
+            let {scrollY} = window
+            console.log(scrollY);
+            if (scrollY > 120 ) {
+                document.querySelector('header').className = 'collapsed'
+            }
+            else { document.querySelector('header').className = '' }
+        }
+    </script>
+    <!-- <script src="https://kit.fontawesome.com/45e02735af.js" crossorigin="anonymous"></script> -->
+</body>
+
+</html>

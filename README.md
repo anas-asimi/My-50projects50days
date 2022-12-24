@@ -6,4 +6,4 @@ Day 2 : 6 projects
 Day 3 : 7 projects   
 Day 4 : 3 projects   
 Day 5 : 3 projects   
-Day 6 : 2 projects   
+Day 6 : 3 projects   
