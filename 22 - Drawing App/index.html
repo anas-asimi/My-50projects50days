@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drawing App</title>
+</head>
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+        user-select: none;
+    }
+
+    body {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+    }
+
+    .container {
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        border: 1px solid steelblue;
+
+    }
+
+    canvas {}
+
+    .tools {
+        height: 80px;
+        width: 500px;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+
+        padding: 16px;
+        background-color: steelblue;
+    }
+
+    .left {
+        height: 100%;
+        width: 100%;
+
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 16px;
+    }
+
+    .right {
+        height: 100%;
+        width: 100%;
+
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 16px;
+    }
+
+    .button {
+        height: 40px;
+        width: 40px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background-color: white;
+        border-radius: 4px;
+        border: none;
+        padding: 2px;
+        font-size: x-large;
+    }
+</style>
+
+<body>
+    <!--  -->
+    <div class="container">
+        <canvas height="500" width="500"></canvas>
+        <div class="tools">
+            <div class="left">
+                <button class="button decrease">-</button>
+                <span class="button size">10</span>
+                <button class="button increase">+</button>
+                <input class="button color" type="color" />
+            </div>
+            <div class="right">
+                <button class="button clear">X</button>
+            </div>
+        </div>
+    </div>
+    <!--  -->
+    <script>
+        const canvas = document.querySelector('canvas');
+        const increaseBtn = document.querySelector('.increase');
+        const decreaseBtn = document.querySelector('.decrease');
+        const sizeELe = document.querySelector('.size');
+        const colorEl = document.querySelector('.color');
+        const clearBtn = document.querySelector('.clear');
+
+        const context = canvas.getContext('2d');
+        let size = 10
+        let color = 'black'
+
+        canvas.onmousedown = function () {
+            canvas.onmousemove = function (event) {
+                drawCircle(event.offsetX, event.offsetY)
+            }
+        }
+
+        canvas.onmouseup = function () {
+            canvas.onmousemove = function () { }
+        }
+
+        increaseBtn.onclick = () => {
+            updateSize('increase')
+        }
+
+        decreaseBtn.onclick = () => {
+            updateSize('decrease')
+        }
+
+        colorEl.onchange = () => {
+            color = colorEl.value
+        }
+
+        clearBtn.onclick = () => {
+            context.clearRect(0, 0, canvas.width, canvas.height)
+        }
+
+        function drawCircle(x, y) {
+            context.beginPath();
+            context.arc(x, y, size, 0, Math.PI * 2)
+            context.fillStyle = color
+            context.fill()
+        }
+        function updateSize(x) {
+            if (x == 'increase' && size < 35) {
+                size += 5
+            }
+            else if (x == 'decrease' && size > 5) {
+                size -= 5
+            }
+            sizeELe.innerHTML = size
+        }
+
+
+    </script>
+    <!-- <script src="https://kit.fontawesome.com/45e02735af.js" crossorigin="anonymous"></script> -->
+</body>
+
+</html>
