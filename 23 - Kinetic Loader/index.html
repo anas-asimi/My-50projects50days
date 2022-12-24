@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kinetic Loader</title>
+</head>
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+        user-select: none;
+    }
+
+    body {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #2c3e50;
+
+    }
+
+    .container {
+        position: absolute;
+        height: 120px;
+        width: 120px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+    }
+
+    .container::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        height: 0;
+        width: 0;
+        translate: -50% -50%;
+        z-index: 10;
+
+        border: 60px solid transparent;
+        border-top-color: white;
+        animation: rotate-center 2s linear infinite forwards 0.5s;
+    }
+    
+    .container::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        height: 0;
+        width: 0;
+        translate: -50% -50%;
+        z-index: 10;
+        
+        border: 60px solid transparent;
+        border-right-color: white;
+        animation: rotate-center 2s linear infinite forwards;
+    }
+
+    @keyframes rotate-center {
+        0% {
+            rotate: 0deg;
+        }
+
+        25% {
+            rotate: 180deg;
+        }
+
+        50% {
+            rotate: 180deg;
+        }
+
+        75% {
+            rotate: 360deg;
+        }
+
+        100% {
+            rotate: 360deg;
+        }
+    }
+</style>
+
+<body>
+    <!--  -->
+    <div class="container">
+    </div>
+    <!--  -->
+    <script>
+
+    </script>
+    <!-- <script src="https://kit.fontawesome.com/45e02735af.js" crossorigin="anonymous"></script> -->
+</body>
+
+</html>
