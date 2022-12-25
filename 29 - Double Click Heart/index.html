@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Double Click Heart</title>
+</head>
+
+<body>
+    <style>
+        :root {
+            --white: rgb(240, 240, 240);
+            --black: rgb(20, 20, 20);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            user-select: none;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: var(--black);
+            background-color: var(--white);
+        }
+
+        div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        div p:first-child {
+            font-weight: bold;
+            font-size: large;
+        }
+
+        div p:first-child i {
+            color: red;
+        }
+
+        div img {
+            height: 400px;
+            width: 400px;
+            object-fit: contain;
+            border: var(--black) 1px solid;
+        }
+
+        #heart {
+            position: absolute;
+            top: -100px;
+            left: -100px;
+            translate: -50% -50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: red;
+            scale: 0;
+            opacity: 1;
+            transition: none;
+        }
+
+        #heart.scale {
+            scale: 8;
+            opacity: 0;
+            transition: scale 0.5s, opacity 0.5s;
+        }
+    </style>
+    <!--  -->
+    <div>
+        <p>Double click on the image to <i class="fas fa-heart"></i> it</p>
+        <p>You liked it <span>0</span> times</p>
+        <img src="https://avatars.githubusercontent.com/u/96184837?v=4" alt="image">
+    </div>
+    <div id="heart"><i class="fas fa-heart"></i></div>
+    <!--  -->
+    <script>
+
+        let image = document.querySelector('div img')
+        let heart = document.querySelector('#heart')
+        let count = document.querySelector('div p span')
+        let prevClickDate = new Date()
+        let hearts = 0
+
+        function addHeart() {
+            hearts++
+            count.textContent = hearts
+        }
+
+        function showHeart(x, y) {
+            heart.style.top = y + 'px'
+            heart.style.left = x + 'px'
+            heart.className = 'scale'
+            setTimeout(() => {
+                heart.className = ''
+            }, 500)
+        }
+
+        image.onclick = (e) => {
+            let currentClickDate = new Date()
+            if ((currentClickDate.valueOf() - prevClickDate.valueOf()) < 500) {
+                showHeart(e.clientX, e.clientY)
+                addHeart()
+            }
+            else { prevClickDate = currentClickDate }
+        }
+    </script>
+    <script src="https://kit.fontawesome.com/45e02735af.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
