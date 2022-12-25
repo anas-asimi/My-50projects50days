@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Github Profiles</title>
+</head>
+
+<body>
+    <style>
+        :root {
+            --white: rgb(240, 240, 240);
+            --black: rgb(20, 20, 20);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            user-select: none;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 32px;
+
+            color: white;
+            background-color: var(--black);
+        }
+
+        .search-wrapper {
+            height: 40px;
+            width: 250px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
+            background-color: var(--white);
+            color: var(--black);
+            border-radius: 100px;
+            overflow: hidden;
+        }
+
+        .search-wrapper input {
+            width: 100%;
+            padding: 0 20px;
+            font-size: medium;
+            outline: none;
+            border: none;
+            background-color: transparent;
+        }
+
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        input:-webkit-autofill:active {
+            transition: background-color 5000s ease-in-out 0s;
+        }
+
+        .search-wrapper label {
+            height: 40px;
+            width: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            color: white;
+            cursor: pointer;
+        }
+
+        .user {
+            width: 600px;
+            display: none;
+            align-items: center;
+            justify-content: space-around;
+            gap: 32px;
+            padding: 32px;
+            border-radius: 8px;
+            background-color: var(--white);
+            color: var(--black);
+        }
+
+        .image {
+            height: 100px;
+            width: 100px;
+            border-radius: 100%;
+            overflow: hidden;
+            border: 5px solid gray;
+        }
+
+        .image img {
+            height: 100%;
+            width: 100%;
+            object-fit: contain;
+        }
+
+        .info {
+            flex: 1;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .full-name {
+            font-weight: bold;
+            font-size: x-large;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .counts {
+            display: flex;
+            align-items: flex-start;
+            gap: 32px;
+        }
+
+        .counts p {
+            margin-right: 8px;
+            font-weight: bold;
+        }
+
+        .counts p span {
+            margin-right: 8px;
+            font-weight: normal;
+        }
+
+        .repoList {
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .repoList span {
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 8px;
+            font-size: smaller;
+            background-color: var(--black);
+            color: var(--white);
+        }
+    </style>
+    <!--  -->
+
+    <div class="search-wrapper">
+        <input type="text" placeholder="search" id="search">
+    </div>
+    <div class="user">
+        <div class="image">
+            <img src="" alt="logo">
+        </div>
+        <div class="info">
+            <p class="full-name"></p>
+            <p class="bio">bio teeeeeext</p>
+            <div class="counts">
+                <p class="Followers"><span></span>Followers</p>
+                <p class="Following"><span></span>Following</p>
+                <p class="Repos"><span></span>Repos</p>
+            </div>
+            <div class="repoList">
+            </div>
+            </p>
+        </div>
+    </div>
+    <!--  -->
+    <script>
+
+        let searchInput = document.querySelector('#search')
+        let userDiv = document.querySelector('.user')
+
+        async function getUser(userName) {
+            try {
+                const API_URL = 'https://api.github.com/users/'
+                let res = await fetch(API_URL + userName)
+                let data = await res.json()
+                let res2 = await fetch(data.repos_url)
+                let repos = await res2.json()
+                let reposName = repos
+                    .sort((a, b) => {
+                        return (new Date(b.updated_at)).valueOf() - (new Date(a.updated_at)).valueOf()
+                    })
+                    .slice(0, 5)
+                    .map((repo) => { return repo.name })
+                return { ...data, reposName }
+
+            } catch (error) {
+                return false
+            }
+        }
+
+        function showUser(data) {
+            if (data == false) { return }
+            let { avatar_url, name, bio, followers, following, public_repos, reposName } = data
+            
+            document.querySelector('.image img').setAttribute('src', avatar_url) // set user image
+            document.querySelector('.full-name').textContent = name // set user full name
+            document.querySelector('.bio').textContent = bio // set user Bio
+            document.querySelector('.counts .Followers span').textContent = followers // set user Followers
+            document.querySelector('.counts .Following span').textContent = following // set user Following
+            document.querySelector('.counts .Repos span').textContent = public_repos // set user Repos
+            document.querySelector('.repoList').innerHTML = reposName.map((name) => `<span>${name}</span>`).join('') // set user repos List
+
+            userDiv.style.display = 'flex' // show the div
+        }
+
+        searchInput.onkeyup = async (event) => {
+            if (event.key == 'Enter') {
+                let userName = searchInput.value
+
+                if (typeof userName == "string" && userName != '') {
+                    let data = await getUser(userName)
+                    showUser(data)
+                    userName.value = ''
+                }
+            }
+        }
+
+    </script>
+</body>
+
+</html>
