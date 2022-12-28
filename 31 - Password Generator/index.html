@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+</head>
+
+<body>
+    <style>
+        :root {
+            --primary: #3b3b98;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Tahoma, Geneva, Verdana, sans-serif;
+            user-select: none;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .Wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background-color: rgba(0, 0, 0, 0.35);
+            gap: 16px;
+            padding: 16px;
+        }
+
+        .form {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form .output {
+            height: 40px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 4px;
+            background-color: rgba(0, 0, 0, 0.35);
+        }
+
+        .form .output span {
+            margin-left: 4px;
+        }
+
+        .form .output .clipboard {
+            height: 100%;
+            aspect-ratio: 1/1;
+            background-color: #3b3b98;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .form .input {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: small;
+        }
+
+        .form .input label {
+            width: 100%;
+        }
+
+        .form .input input {
+            float: right;
+        }
+
+        #length {
+            width: 40px;
+            outline: none;
+        }
+
+        .form .generate {
+            height: 40px;
+            width: 100%;
+            background-color: #3b3b98;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+    <!--  -->
+    <div class="Wrapper">
+        <h2>Password Generator</h2>
+        <div class="form">
+            <div class="output">
+                <span class="result"></span>
+                <button class="clipboard"><i class="far fa-clipboard fa-xl"></i></button>
+            </div>
+            <div class="input"><label>Password Length<input type="number" name="length" id="length" value="20"
+                        min="5"></label></div>
+            <div class="input"><label>Include uppercase letters<input type="checkbox" name="uppercase" id="uppercase"
+                        checked></label></div>
+            <div class="input"><label>Include lowercase letters<input type="checkbox" name="lowercase" id="lowercase"
+                        checked></label></div>
+            <div class="input"><label>Include numbers<input type="checkbox" name="numbers" id="numbers" checked></label>
+            </div>
+            <div class="input"><label>Include symbols<input type="checkbox" name="symbols" id="symbols" checked></label>
+            </div>
+            <div class="input"></div>
+            <button class="generate">Generate Password</button>
+        </div>
+    </div>
+    <!--  -->
+    <script>
+
+        function randomChoose(choices) {
+            let index = Math.floor(Math.random() * choices.length);
+            return choices[index];
+        }
+
+        function generate({ length, uppercase, lowercase, numbers, symbols }) {
+
+            const UPPERCASE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+            const LOWERCASE = 'abcdefghikklmnopqrstuvwxyz'
+            const NUMBERS = '0123456789'
+            const SYMBOLS = '!@#$%^&*(){}[]=<>/,.'
+
+            let password = ''
+            let collection = ''
+            if (uppercase) collection += UPPERCASE
+            if (lowercase) collection += LOWERCASE
+            if (numbers) collection += NUMBERS
+            if (symbols) collection += SYMBOLS
+
+            for (let i = 0; i < length; i++) {
+                password += randomChoose(collection)
+            }
+            return password
+        }
+
+        let output = document.querySelector('.output .result')
+        let generateBtn = document.querySelector('.form .generate')
+        let clipboardBtn = document.querySelector('.clipboard')
+
+        generateBtn.onclick = () => {
+
+            let length = document.getElementById('length').valueAsNumber
+            let uppercase = document.getElementById('uppercase').checked
+            let lowercase = document.getElementById('lowercase').checked
+            let numbers = document.getElementById('numbers').checked
+            let symbols = document.getElementById('symbols').checked
+
+            output.textContent = generate({
+                length,
+                uppercase,
+                lowercase,
+                numbers,
+                symbols,
+            })
+        }
+
+        clipboardBtn.onclick = () => {
+            navigator.clipboard.writeText(output.textContent)
+        }
+
+    </script>
+    <script src="https://kit.fontawesome.com/45e02735af.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
