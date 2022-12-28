@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes App</title>
+</head>
+
+<body>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Tahoma, Geneva, Verdana, sans-serif;
+            user-select: none;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 4px;
+            background-color: rgb(240, 240, 240);
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            height: 400px;
+            aspect-ratio: 1/1;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .container .images {
+            position: absolute;
+            height: 100%;
+            aspect-ratio: 1/1;
+            top: 0;
+            left: 0;
+            /* translate: -100px 0; */
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            transition: all 1s;
+        }
+
+        .container .images img {
+            height: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+        }
+
+        .control {
+            width: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4px;
+        }
+
+        .control span {
+            flex: 1;
+        }
+
+        .control button {
+            background-color: cornflowerblue;
+            height: 40px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+
+        }
+    </style>
+    <!--  -->
+    <div class="container">
+        <div class="images">
+            <img src="https://images.unsplash.com/photo-1599394022918-6c2776530abb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1458&q=80"
+                alt="">
+            <img src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80"
+                alt="">
+            <img src="https://images.unsplash.com/photo-1599423300746-b62533397364?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80"
+                alt="">
+            <img src="https://images.unsplash.com/photo-1599561046251-bfb9465b4c44?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1492&q=80"
+                alt="">
+
+        </div>
+    </div>
+    <div class="control">
+        <span><button class="back">Back</button></span>
+        <span><button class="next">Next</button></span>
+    </div>
+
+    <!--  -->
+    <script>
+
+        let images = document.querySelector('.images')
+        let backBtn = document.querySelector('.control .back')
+        let nextBtn = document.querySelector('.control .next')
+        let current = 0
+        function update(index) {
+            images.style.translate = `-${index * 400}px 0`
+        }
+
+        function back() {
+            current--
+            if (current < 0) {
+                current = images.children.length - 1
+            }
+            update(current)
+        }
+
+        function next() {
+            current++
+            if (current == images.children.length) {
+                current = 0
+            }
+            update(current)
+        }
+
+        let interval = setInterval(() => {
+            next()
+        }, 3000)
+
+        backBtn.onclick = () => {
+            clearInterval(interval)
+            back()
+            interval = setInterval(() => {
+                back()
+            }, 3000)
+        }
+        
+        nextBtn.onclick = () => {
+            clearInterval(interval)
+            next()
+            interval = setInterval(() => {
+                next()
+            }, 3000)
+        }
+
+    </script>
+    <!-- <script src="https://kit.fontawesome.com/45e02735af.js" crossorigin="anonymous"></script> -->
+</body>
+
+</html>
