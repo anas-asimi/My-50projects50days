@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes App</title>
+</head>
+
+<body>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Tahoma, Geneva, Verdana, sans-serif;
+            user-select: none;
+
+            /* border: 1px red solid; */
+        }
+
+        body {
+            min-height: 100vh;
+            padding: 0 16px;
+            padding-top: 48px;
+            background-color: rgb(240, 240, 240);
+            color: white;
+        }
+
+        .add-note {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background-color: green;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            cursor: pointer;
+        }
+
+        .container {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            justify-content: flex-start;
+            gap: 16px;
+        }
+
+        .note {
+            width: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .note .head {
+            height: 32px;
+            width: 100%;
+            padding: 0 12px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 12px;
+            background-color: cadetblue;
+        }
+
+        .note .head button {
+            background-color: transparent;
+            color: white;
+            cursor: pointer;
+            border: none;
+        }
+
+        .note .body {
+            height: 200px;
+            width: 100%;
+            background-color: white;
+            color: rgb(50, 50, 50);
+            border: none;
+            outline: none;
+            padding: 16px;
+            resize: none;
+        }
+    </style>
+    <!--  -->
+    <div class="container">
+        <div class="note">
+            <div class="head">
+                <button class="edit"><i class="fas fa-edit"></i></button>
+                <button class="remove"><i class="fas fa-trash-alt"></i></button>
+            </div>
+            <textarea class="body" placeholder="write here"></textarea>
+        </div>
+    </div>
+    <button class="add-note">Add note</button>
+    <!--  -->
+    <script>
+        function edit(event) {
+            event.currentTarget.parentElement.parentElement.lastElementChild.toggleAttribute('readonly')
+        }
+        function remove(event) {
+            event.currentTarget.parentElement.parentElement.remove()
+        }
+
+        let container = document.querySelector('.container')
+        let addBtn = document.querySelector('button.add-note')
+        addBtn.onclick = () => {
+            let note = `
+                <div class="note">
+                    <div class="head">
+                        <button class="edit"><i class="fas fa-edit"></i></button>
+                        <button class="remove"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                    <textarea class="body" placeholder="write here"></textarea>
+                </div>
+            `
+            container.innerHTML += note
+
+            let editBtns = document.querySelectorAll('button.edit')
+            editBtns.forEach((btn) => {
+                btn.onclick = edit
+            })
+
+            let removeBtns = document.querySelectorAll('button.remove')
+            removeBtns.forEach((btn) => {
+                btn.onclick = remove
+            })
+        }
+
+    </script>
+    <script src="https://kit.fontawesome.com/45e02735af.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
