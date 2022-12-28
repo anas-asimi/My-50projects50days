@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+</head>
+
+<body>
+    <style>
+        :root {
+            --primary: #3b3b98;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Tahoma, Geneva, Verdana, sans-serif;
+            user-select: none;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 32px;
+
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .wrapper {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .radio-wrapper {
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .radio-wrapper .input input {
+            display: none;
+        }
+
+        .radio-wrapper .input label {
+            position: relative;
+            display: inline-block;
+            height: 40px;
+            width: 80px;
+            border-radius: 40px;
+            background-color: rgba(255, 255, 255, 0.35);
+            transition: background-color 0.5s;
+        }
+
+        .radio-wrapper .input label::after {
+            position: absolute;
+            content: '';
+
+            top: 50%;
+            left: 2px;
+            translate: 0% -50%;
+            height: calc(100% - 4px);
+            aspect-ratio: 1/1;
+            border-radius: 100%;
+            background-color: white;
+            transition: all 0.5s;
+        }
+
+        .radio-wrapper .input input:checked+label {
+            background-color: rgb(142, 68, 173);
+        }
+
+        .radio-wrapper .input input:checked+label::after {
+            translate: 40px -50%;
+        }
+    </style>
+    <!--  -->
+    <h2>How do you want your project to be?</h2>
+    <div class="wrapper">
+        <div class="radio-wrapper">
+            <span class="input">
+                <input type="checkbox" name="checkbox1" id="checkbox1">
+                <label for="checkbox1"></label>
+            </span>
+            <span>Good</span>
+        </div>
+        <div class="radio-wrapper">
+            <span class="input">
+                <input type="checkbox" name="checkbox2" id="checkbox2">
+                <label for="checkbox2"></label>
+            </span>
+            <span>Cheap</span>
+        </div>
+        <div class="radio-wrapper">
+            <span class="input">
+                <input type="checkbox" name="checkbox3" id="checkbox3">
+                <label for="checkbox3"></label>
+            </span>
+            <span>Fast</span>
+        </div>
+    </div>
+    <!--  -->
+    <script>
+        let checkboxs = Array.from(document.querySelectorAll('.radio-wrapper .input input'))
+        checkboxs.forEach((checkbox, index) => {
+            checkbox.onchange = () => {
+                if (checkbox.checked) {
+                    if (checkboxs.every((checkbox) => checkbox.checked)) {
+                        checkboxs[index > 0 ? index - 1 : checkboxs.length - 1].checked = false
+                    }
+                }
+            }
+        })
+
+    </script>
+    <!-- <script src="https://kit.fontawesome.com/45e02735af.js" crossorigin="anonymous"></script> -->
+</body>
+
+</html>
