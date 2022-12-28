@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes App</title>
+</head>
+
+<body>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Tahoma, Geneva, Verdana, sans-serif;
+            user-select: none;
+
+            /* border: 1px red solid; */
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 16px;
+            padding: 0 16px;
+            padding-top: 48px;
+            background-color: rgb(240, 240, 240);
+        }
+
+        body>div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        body>div>p {
+            font-size: x-large;
+            font-weight: bold;
+        }
+
+        body>div>button {
+            background-color: cornflowerblue;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .counts {
+            position: relative;
+            height: 40px;
+            width: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .counts p {
+            position: absolute;
+            bottom: 0;
+            translate: 0 6px;
+            font-size: xx-large;
+            color: cornflowerblue;
+            transform-origin: bottom;
+            transform: rotate(120deg) scale(0.5);
+        }
+
+        .counts .animate {
+            animation: rotate 1s linear;
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(120deg) scale(0.5);
+            }
+
+            25% {
+                transform: rotate(-20deg) scale(1);
+            }
+
+            30% {
+                transform: rotate(3deg) scale(1);
+            }
+
+            70% {
+                transform: rotate(-3deg) scale(1);
+            }
+
+            75% {
+                transform: rotate(20deg) scale(1);
+            }
+
+            100% {
+                transform: rotate(-120deg) scale(0.5);
+            }
+        }
+
+
+        .hide {
+            display: none;
+        }
+    </style>
+    <!--  -->
+    <div class="countdown hide">
+        <div class="counts">
+            <p class="">3</p>
+            <p class="">2</p>
+            <p class="">1</p>
+            <p class="">0</p>
+        </div>
+        <p>Get Ready</p>
+    </div>
+    <div class="replay">
+        <p>Go</p>
+        <button class="add-note">replay</button>
+    </div>
+    <!--  -->
+    <script>
+
+        let countdown = document.querySelector('.countdown')
+        let replay = document.querySelector('.replay')
+        let replayBtn = document.querySelector('.replay button')
+
+        replayBtn.onclick = startCounDown
+
+        startCounDown()
+        function startCounDown() {
+            let counts = document.querySelectorAll('.counts p')
+            countdown.classList.toggle('hide')
+            replay.classList.toggle('hide')
+            for (let i = 0; i < counts.length; i++) {
+                setTimeout(() => {
+                    counts[i].className = 'animate'
+                    setTimeout(() => {
+                        counts[i].className = ''
+                        if (i == counts.length - 1) {
+                            countdown.classList.toggle('hide')
+                            replay.classList.toggle('hide')
+                        }
+                    }, 1000)
+                }, i * 1000)
+            }
+        }
+
+    </script>
+    <!-- <script src="https://kit.fontawesome.com/45e02735af.js" crossorigin="anonymous"></script> -->
+</body>
+
+</html>
