@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3d Background Boxes</title>
+</head>
+
+<body>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', Verdana, sans-serif;
+            user-select: none;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-direction: column;
+            gap: 64px;
+            padding-top: 64px;
+        }
+
+        button {
+            background-color: crimson;
+            color: white;
+            padding: 8px 32px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+            gap: 0px;
+            grid-template-areas:
+                ". . ."
+                ". . ."
+                ". . .";
+            transition: gap 0.5s;
+
+        }
+
+        .container.expand {
+            gap: 16px;
+        }
+
+        .container .box {
+            position: relative;
+            height: 120px;
+            width: 120px;
+            rotate: 0;
+            transition: rotate 0.4s;
+            background-image: url(https://media.giphy.com/media/EZqwsBSPlvSda/giphy.gif);
+            /* background-image: url(https://picsum.photos/360); */
+            background-repeat: no-repeat;
+            background-size: 360px 360px;
+        }
+
+        .container.expand .box {
+            rotate: 360deg;
+        }
+
+        .container .box::before {
+            position: absolute;
+            content: '';
+            height: 120px;
+            width: 10px;
+            top: 5px;
+            left: 100%;
+            background-color: rgb(38, 180, 185);
+            transform: skewY(45deg)
+        }
+
+        .container .box::after {
+            position: absolute;
+            content: '';
+            height: 10px;
+            width: 120px;
+            top: 100%;
+            left: 5px;
+            background-color: cornflowerblue;
+            transform: skewX(45deg)
+        }
+    </style>
+    <!--  -->
+    <button>Magic</button>
+    <div class="container expand">
+        <div class="box" style="background-position: -0px 0px;"></div>
+        <div class="box" style="background-position: -120px 0px;"></div>
+        <div class="box" style="background-position: -240px 0px;"></div>
+        <div class="box" style="background-position: -0px -120px;"></div>
+        <div class="box" style="background-position: -120px -120px;"></div>
+        <div class="box" style="background-position: -240px -120px;"></div>
+        <div class="box" style="background-position: -0px -240px;"></div>
+        <div class="box" style="background-position: -120px -240px;"></div>
+        <div class="box" style="background-position: -240px -240px;"></div>
+
+    </div>
+    <!--  -->
+    <script>
+        let container = document.querySelector('.container')
+        let btn = document.querySelector('button')
+        btn.onclick = () => {
+            container.classList.toggle('expand')
+        }
+    </script>
+    <!-- <script src="https://kit.fontawesome.com/45e02735af.js" crossorigin="anonymous"></script> -->
+</body>
+
+</html>
