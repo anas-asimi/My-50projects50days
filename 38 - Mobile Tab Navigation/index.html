@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Tab Navigation</title>
+</head>
+
+<body>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', Verdana, sans-serif;
+            user-select: none;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: cornflowerblue;
+
+        }
+
+        .mobile {
+            height: 500px;
+            width: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+
+            border-radius: 8px;
+            overflow: hidden;
+            border: white 1px solid;
+            box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .screen {
+            position: relative;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            background-color: white;
+        }
+
+        .screen .content {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .screen .content.show {
+            opacity: 1;
+        }
+
+        .buttons {
+            height: 48px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            background-color: rgb(240, 240, 240);
+        }
+
+        .button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 2px;
+            font-size: small;
+            color: gray;
+            cursor: pointer;
+        }
+
+        .button.active {
+            color: cornflowerblue;
+        }
+        
+    </style>
+    <!--  -->
+    <div class="mobile">
+        <div class="screen">
+            <img src="https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1053&amp;q=80"
+                alt="home" class="content show">
+            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1050&amp;q=80"
+                alt="work" class="content">
+            <img src="https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1266&amp;q=80"
+                alt="blog" class="content">
+            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1351&amp;q=80"
+                alt="about" class="content">
+        </div>
+        <div class="buttons">
+            <div class="button home active">
+                <i class="fa-solid fa-house"></i>
+                <p>Home</p>
+            </div>
+            <div class="button work">
+                <i class="fa-solid fa-briefcase"></i>
+                <p>Work</p>
+            </div>
+            <div class="button blog">
+                <i class="fas fa-book-open"></i>
+                <p>Blog</p>
+            </div>
+            <div class="button about">
+                <i class="fa-solid fa-users"></i>
+                <p>About</p>
+            </div>
+        </div>
+    </div>
+    <!--  -->
+    <script>
+
+        let buttons = document.querySelectorAll('.buttons .button');
+        let images = document.querySelectorAll('.screen img');
+        buttons.forEach((button , i) => {
+            button.onclick = () => {
+                buttons.forEach((button) => {
+                    button.classList.remove('active')
+                })
+                images.forEach((image) => {
+                    image.classList.remove('show')
+                })
+                button.classList.add('active')
+                images[i].classList.add('show')
+            }
+        })
+
+    </script>
+    <script src="https://kit.fontawesome.com/45e02735af.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Background</title>
+</head>
+
+<body>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', Verdana, sans-serif;
+            user-select: none;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .backGround {
+            position: absolute;
+            z-index: -1;
+            inset: 0 0 0 0;
+            background: url(https://images.unsplash.com/photo-1556745757-8d76bdb6984b) no-repeat center center/cover;
+        }
+
+        .container {
+            width: 360px;
+            border-radius: 8px;
+            padding: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background-color: white;
+            box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .container h2 {
+            font-weight: 500;
+        }
+
+        .container p {
+            font-size: small;
+        }
+
+        .container .inputs {
+            width: 100%;
+            margin-top: 16px;
+        }
+
+        .container .inputs p {
+            color: gray;
+            margin-bottom: 4px;
+        }
+
+        .container .inputs input {
+            height: 32px;
+            width: 100%;
+            padding-left: 4px;
+            border-radius: 4px;
+            border: 1px solid lightgray;
+            outline: none;
+        }
+
+        .container .submit {
+            height: 32px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 16px;
+            border-radius: 4px;
+            border: none;
+            background-color: black;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+    <!--  -->
+    <div class="backGround"></div>
+    <div class="container">
+        <h2>Image Password Strength</h2>
+        <p>Change the password to see the effect</p>
+        <div class="inputs">
+            <p>Email :</p>
+            <input type="email" name="" id="email">
+        </div>
+        <div class="inputs">
+            <p>Password :</p>
+            <input type="password" name="" id="password">
+        </div>
+        <button class="submit">Submit</button>
+    </div>
+    <!--  -->
+    <script>
+        let inputEle = document.querySelector('#password')
+        let backGround = document.querySelector('.backGround')
+        function update() {
+            let length = inputEle.value.length
+            let blur = 16 - (length * 2)
+            backGround.style.filter = `blur(${blur}px)`
+        }
+        update()
+        inputEle.onkeyup = update
+    </script>
+    <!-- <script src="https://kit.fontawesome.com/45e02735af.js" crossorigin="anonymous"></script> -->
+</body>
+
+</html>
