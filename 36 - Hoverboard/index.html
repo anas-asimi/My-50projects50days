@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoverboard</title>
+</head>
+
+<body>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Tahoma, Geneva, Verdana, sans-serif;
+            user-select: none;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            background-color: rgb(20, 20, 20);
+            overflow: hidden;
+        }
+
+        .container {
+            height: 377px;
+            width: 377px;
+
+            display: flex;
+            align-items: center;
+            align-content: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 3px;
+        }
+
+        .box {
+            height: 16px;
+            width: 16px;
+            background-color: rgba(100, 100, 100, 0.2);
+            box-shadow: 0 0 0 0 rgba(100, 100, 100, 0.2);
+            transition: background-color 1s , box-shadow 1s;
+        }
+
+        .hover {}
+    </style>
+    <!--  -->
+    <div class="container">
+
+    </div>
+    <!--  -->
+    <script>
+        let container = document.querySelector('.container');
+        const colors = ['#e74c3c', '#8e44ad', '#3498db', '#e67e22', '#2ecc71']
+        // add boxs
+        container.innerHTML = '<div class="box"></div>'.repeat(400)
+
+        let boxs = document.querySelectorAll('.container .box')
+        boxs.forEach((box) => {
+            box.onmouseover = () => {
+                let color = randomChoose(colors)
+                box.style.transition = 'none'
+                box.style.backgroundColor = color
+                box.style.boxShadow = `0 0 8px 0 ${color}`
+            }
+            box.onmouseout = () => {
+                box.style.transition = ''
+                box.style.backgroundColor = ''
+                box.style.boxShadow = ''
+            }
+        })
+        function randomChoose(choices) {
+            let index = Math.floor(Math.random() * choices.length);
+            return choices[index];
+        }
+
+    </script>
+    <!-- <script src="https://kit.fontawesome.com/45e02735af.js" crossorigin="anonymous"></script> -->
+</body>
+
+</html>
