@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live User Filter</title>
+</head>
+
+<body>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', Verdana, sans-serif;
+            user-select: none;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(240, 240, 240);
+        }
+
+        .container {
+            width: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            border-radius: 16px;
+            box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .head {
+            width: 100%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            flex-direction: column;
+            padding: 16px;
+            background-color: cornflowerblue;
+            color: white;
+        }
+
+        .head p {
+            font-size: small;
+        }
+
+        .head input {
+            height: 32px;
+            width: 100%;
+            padding-left: 16px;
+            margin-top: 16px;
+            outline: none;
+            border: none;
+            border-radius: 32px;
+            background-color: rgba(0, 0, 0, 0.2);
+            color: white;
+            box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .users {
+            height: 400px;
+            width: 100%;
+            display: flex;
+            align-items: flex-start;
+            flex-direction: column;
+            background-color: rgb(240, 240, 240);
+            overflow-y: scroll;
+        }
+
+        .user.male {
+            background-color: rgb(245, 245, 255);
+        }
+
+        .user.female {
+            background-color: rgb(255, 245, 245);
+        }
+
+        .users .user {
+            width: 100%;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border-bottom: 1px solid white;
+        }
+
+        .users .user .image {
+            overflow: hidden;
+            height: 48px;
+            width: 48px;
+            min-width: 48px;
+            background-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
+            border-radius: 50%;
+        }
+
+        .users .user .image img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .users .user .info {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 4px;
+            flex-direction: column;
+        }
+
+        .users .user .info .name {
+            font-weight: bold;
+        }
+
+        .users .user .info .location {
+            font-size: small;
+        }
+    </style>
+    <!--  -->
+    <div class="container">
+        <div class="head">
+            <h4>Live User Filter</h4>
+            <p>Search by name and/or location</p>
+            <input type="text">
+        </div>
+        <div class="users">
+        </div>
+    </div>
+    <!--  -->
+    <script>
+
+        let usersContainer = document.querySelector('.users')
+        let searchEle = document.querySelector('.container .head input')
+
+        let usersData = (async () => {
+            const res = await fetch('https://randomuser.me/api?results=50')
+            const { results } = await res.json()
+            return results
+        })()
+
+        usersData.then((data) => {
+            usersContainer.innerHTML = ''
+            data.forEach(user => {
+                show(user)
+            });
+        })
+
+        function show(userData) {
+            try {
+                let gender = userData.gender
+                let fullName = userData.name.first + ' ' + userData.name.last
+                let location = userData.location.city + ', ' + userData.location.country
+                let imageLink = userData.picture.thumbnail
+
+                let userCard = `
+                    <div class="user ${gender}">
+                        <div class="image">
+                            <img src="${imageLink}">
+                        </div>
+                        <div class="info">
+                            <p class="name">${fullName}</p>
+                            <p class="location">${location}</p>
+                        </div>
+                    </div>
+            `
+                usersContainer.innerHTML += userCard
+
+            } catch (error) {
+                console.log(userData);
+            }
+        }
+        searchEle.oninput = async () => {
+            if (searchEle.value == '') {
+                usersData.then((data) => {
+                    usersContainer.innerHTML = ''
+                    data.forEach(user => {
+                        show(user)
+                    });
+                })
+                return ;
+            }
+            let searchWord = searchEle.value.toLowerCase()
+            usersData
+                .then((data) => {
+                    let newUsersData = data.filter((user) => {
+                        if (user.name.first.toLowerCase().includes(searchWord)) return true
+                        if (user.name.last.toLowerCase().includes(searchWord)) return true
+                        if (user.location.city.toLowerCase().includes(searchWord)) return true
+                        if (user.location.country.toLowerCase().includes(searchWord)) return true
+                        return false
+                    })
+                    return newUsersData
+                })
+                .then((data) => {
+                    usersContainer.innerHTML = ''
+                    data.forEach((user) => {
+                        show(user)
+                    })
+                })
+        }
+
+    </script>
+    <!-- <script src="https://kit.fontawesome.com/45e02735af.js" crossorigin="anonymous"></script> -->
+</body>
+
+</html>
