@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Ui Design</title>
+</head>
+
+<body>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', Verdana, sans-serif;
+            user-select: none;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background-color: rgb(240, 240, 240);
+            font-size: 14px;
+        }
+
+        .preview-form {
+            width: 320px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 32px;
+
+            text-align: center;
+            padding: 32px;
+            border-radius: 16px;
+            background-color: white;
+            box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
+
+        }
+
+        .preview-form .choices {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+
+        .preview-form label {
+            height: 40px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-direction: column;
+            color: darkgray;
+        }
+        
+        .preview-form label:has(input:checked) {
+            color: rgb(50, 122, 255);
+        }
+        .preview-form label input{
+            display: none;
+        }
+
+        .preview-form strong {
+            font-weight: 500;
+        }
+
+        .preview-form button {
+            background-color: rgb(40, 30, 40);
+            color: white;
+            padding: 8px 32px;
+            border-radius: 4px;
+        }
+
+        .thanks {
+            width: 320px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 16px;
+
+            text-align: center;
+            padding: 32px;
+            border-radius: 16px;
+            background-color: white;
+            box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
+
+        }
+
+        .fa-heart {
+            color: red;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+    <!--  -->
+    <div class="preview-form">
+        <strong>How satisfied are you with our
+            customer support performance?</strong>
+        <div class="choices">
+            <label>
+                <i class="fa-solid fa-face-frown fa-2xl"></i>
+                bad
+                <input type="radio" name="preview" id="bad">
+            </label>
+            <label>
+                <i class="fa-solid fa-face-meh fa-2xl"></i>
+                normal
+                <input type="radio" name="preview" id="normal">
+            </label>
+            <label>
+                <i class="fa-solid fa-face-smile fa-2xl"></i>
+                good
+                <input type="radio" name="preview" id="good">
+            </label>
+        </div>
+        <button class="submit">Send Review</button>
+    </div>
+    <div class="thanks hidden">
+        <i class="fas fa-heart fa-xl"></i>
+        <strong>Thank You!</strong>
+        <strong>Feedback: Satisfied</strong>
+        <p>We'll use your feedback to improve our customer support</p>
+    </div>
+    <!--  -->
+    <script>
+
+        let preview = document.querySelector('.preview-form')
+        let thanks = document.querySelector('.thanks')
+        let submitBtn = document.querySelector('.preview-form .submit')
+        submitBtn.onclick = () => {
+            preview.classList.toggle('hidden')
+            thanks.classList.toggle('hidden')
+        }
+
+    </script>
+    <script src="https://kit.fontawesome.com/45e02735af.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
