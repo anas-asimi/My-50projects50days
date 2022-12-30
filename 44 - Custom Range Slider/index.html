@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Range Slider</title>
+</head>
+
+<body>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', Verdana, sans-serif;
+            user-select: none;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(240, 240, 240);
+            font-size: 14px;
+        }
+
+        .container {
+            position: relative;
+            height: 40px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .container label {
+            position: absolute;
+            width: 48px;
+            padding: 4px 0;
+            text-align: center;
+            top: 0%;
+            left: 8px;
+            translate: -50% -0%;
+            background-color: white;
+            border-radius: 4px;
+            box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
+
+        }
+
+        input[type=range] {
+            width: 300px;
+            appearance: none;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            background-color: cornflowerblue;
+            height: 8px;
+            border-radius: 16px;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            appearance: none;
+            height: 16px;
+            aspect-ratio: 1/1;
+            border-radius: 50%;
+            translate: 0 -4px;
+            background-color: white;
+            border: 2px solid cornflowerblue;
+        }
+
+    </style>
+    <!--  -->
+    <div class="container">
+        <label for="range">0</label>
+        <input type="range" name="range" id="range" min="0" max="100" value="0">
+    </div>
+    <!--  -->
+    <script>
+        let label = document.querySelector('.container label')
+        let range = document.querySelector('#range')
+        range.oninput = (e) => {
+            let WIDTH = 300 - 8 - 8
+            let value = e.srcElement.value
+            label.innerHTML = value;
+            label.style.left = `${8 + (value * WIDTH)/100}px`
+        }
+    </script>
+    <!-- <script src="https://kit.fontawesome.com/45e02735af.js" crossorigin="anonymous"></script> -->
+</body>
+
+</html>
