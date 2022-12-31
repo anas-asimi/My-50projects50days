@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testimonial Box Switcher</title>
+</head>
+
+<body>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            user-select: none;
+            list-style: none;
+        }
+
+        body {
+            min-height: 100vh;
+            padding: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 32px;
+            background-color: rgb(240, 240, 240);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .testimonial {
+            width: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 16px;
+            border-radius: 8px;
+            padding: 32px;
+            background-color: slateblue;
+            color: white;
+            font-weight: 300;
+        }
+
+        .testimonial .progress {
+            height: 3px;
+            width: 100%;
+        }
+
+        .testimonial .progress div {
+            height: 100%;
+            float: left;
+            background-color: white;
+            animation: grow 4s linear forwards;
+        }
+
+        @keyframes grow {
+            from {
+                width: 0%;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+
+        .testimonial .body {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            font-size: small;
+            line-height: 20px;
+        }
+
+        .testimonial .body .left-quote,
+        .testimonial .body .right-quote {
+            color: rgba(250, 250, 250, 0.5);
+        }
+
+        .testimonial .user {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .testimonial .user img {
+            height: 64px;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .testimonial .user .info {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .testimonial .user .info .name {
+            font-weight: 500;
+        }
+    </style>
+    <!--  -->
+
+    <!--  -->
+    <script>
+        const testimonials = [
+            {
+                name: 'Miyah Myles',
+                position: 'Marketing',
+                photo:
+                    'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=707b9c33066bf8808c934c8ab394dff6',
+                text:
+                    "I've worked with literally hundreds of HTML/CSS developers and I have to say the top spot goes to this guy. This guy is an amazing developer. He stresses on good, clean code and pays heed to the details. I love developers who respect each and every aspect of a throughly thought out design and do their best to put it in code. He goes over and beyond and transforms ART into PIXELS - without a glitch, every time.",
+            },
+            {
+                name: 'June Cha',
+                position: 'Software Engineer',
+                photo: 'https://randomuser.me/api/portraits/women/44.jpg',
+                text:
+                    'This guy is an amazing frontend developer that delivered the task exactly how we need it, do your self a favor and hire him, you will not be disappointed by the work delivered. He will go the extra mile to make sure that you are happy with your project. I will surely work again with him!',
+            },
+            {
+                name: 'Iida Niskanen',
+                position: 'Data Entry',
+                photo: 'https://randomuser.me/api/portraits/women/68.jpg',
+                text:
+                    "This guy is a hard worker. Communication was also very good with him and he was very responsive all the time, something not easy to find in many freelancers. We'll definitely repeat with him.",
+            },
+            {
+                name: 'Renee Sims',
+                position: 'Receptionist',
+                photo: 'https://randomuser.me/api/portraits/women/65.jpg',
+                text:
+                    "This guy does everything he can to get the job done and done right. This is the second time I've hired him, and I'll hire him again in the future.",
+            },
+            {
+                name: 'Jonathan Nunfiez',
+                position: 'Graphic Designer',
+                photo: 'https://randomuser.me/api/portraits/men/43.jpg',
+                text:
+                    "I had my concerns that due to a tight deadline this project can't be done. But this guy proved me wrong not only he delivered an outstanding work but he managed to deliver 1 day prior to the deadline. And when I asked for some revisions he made them in MINUTES. I'm looking forward to work with him again and I totally recommend him. Thanks again!",
+            },
+            {
+                name: 'Sasha Ho',
+                position: 'Accountant',
+                photo:
+                    'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?h=350&auto=compress&cs=tinysrgb',
+                text:
+                    'This guy is a top notch designer and front end developer. He communicates well, works fast and produces quality work. We have been lucky to work with him!',
+            },
+            {
+                name: 'Veeti Seppanen',
+                position: 'Director',
+                photo: 'https://randomuser.me/api/portraits/men/97.jpg',
+                text:
+                    'This guy is a young and talented IT professional, proactive and responsible, with a strong work ethic. He is very strong in PSD2HTML conversions and HTML/CSS technology. He is a quick learner, eager to learn new technologies. He is focused and has the good dynamics to achieve due dates and outstanding results.',
+            },
+        ]
+
+        testimonials.forEach((testimonial) => {
+            document.body.innerHTML += `
+                <div class="testimonial hidden">
+                    <div class="progress">
+                        <div></div>
+                        </div>
+                    <div class="body">
+                        <div class="left-quote">
+                            <i class="fas fa-quote-right fa-quote fa-2xl"></i>
+                        </div>
+                        <p class="content">${testimonial.text}</p>
+                        <div class="right-quote">
+                            <i class="fas fa-quote-left fa-quote fa-2xl"></i>
+                        </div>
+                    </div>
+                    <div class="user">
+                        <img src="${testimonial.photo}">
+                        <div class="info">
+                            <p class="name">${testimonial.name}</p>
+                            <p class="position">${testimonial.position}</p>
+                        </div>
+                    </div>
+                </div>
+            `
+        });
+
+        let testimonialsElements = document.querySelectorAll('.testimonial')
+        let i = 0
+        function showTestimonial(i) {
+            testimonialsElements.forEach((ele) => {
+                ele.classList.add('hidden')
+            })
+            testimonialsElements[i].classList.remove('hidden')
+        }
+
+        setTimeout(function fun() {
+            showTestimonial(i)
+            i++
+            if (i == testimonialsElements.length) {
+                i = 0
+            }
+            setTimeout(fun, 4000)
+        })
+    </script>
+    <script src="https://kit.fontawesome.com/45e02735af.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
