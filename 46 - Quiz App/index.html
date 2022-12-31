@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App</title>
+</head>
+
+<body>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            user-select: none;
+            list-style: none;
+        }
+
+        body {
+            height: 100vh;
+            padding: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background-color: rgb(40, 40, 40);
+            overflow: hidden;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .quiz-card {
+            width: 500px;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: rgb(240, 240, 240);
+        }
+
+        .quiz-card .question {
+            margin: 32px 64px;
+            text-align: center;
+        }
+
+        .quiz-card .answers {
+            margin: 32px 64px;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .quiz-card .answers label {
+            cursor: pointer;
+        }
+
+        .quiz-card .answers label input {
+            margin-right: 16px;
+        }
+
+        .quiz-card .submit {
+            width: 100%;
+            font-weight: bold;
+            font-size: large;
+            background-color: cornflowerblue;
+            color: white;
+            border: none;
+            padding: 24px 0;
+            cursor: pointer;
+        }
+
+        .quiz-result {
+            width: 500px;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: rgb(240, 240, 240);
+        }
+
+        .quiz-result h2 {
+            margin: 32px 64px;
+            text-align: center;
+        }
+
+        .quiz-result .reload {
+            width: 100%;
+            font-weight: bold;
+            font-size: large;
+            background-color: cornflowerblue;
+            color: white;
+            border: none;
+            padding: 24px 0;
+            cursor: pointer;
+        }
+    </style>
+    <!--  -->
+    <div class="quiz-card" id="1">
+        <h2 class="question">Which language runs in a web browser?</h2>
+        <div class="answers">
+            <label><input type="radio" name="question-1">Java</label>
+            <label><input type="radio" name="question-1">C</label>
+            <label><input type="radio" name="question-1">Python</label>
+            <label><input type="radio" name="question-1">JavaScript</label>
+        </div>
+        <button class="submit">Submit</button>
+    </div>
+    <div class="quiz-card hidden" id="2">
+        <h2 class="question">What does CSS stand for?</h2>
+        <div class="answers">
+            <label><input type="radio" name="question-1">Central Style Sheets</label>
+            <label><input type="radio" name="question-1">Cascading Style Sheets</label>
+            <label><input type="radio" name="question-1">Cascading Simple Sheets</label>
+            <label><input type="radio" name="question-1">Cars SUVs Sailboats</label>
+        </div>
+        <button class="submit">Submit</button>
+    </div>
+    <div class="quiz-card hidden" id="3">
+        <h2 class="question">What does HTML stand for?</h2>
+        <div class="answers">
+            <label><input type="radio" name="question-1">Hypertext Markup Language</label>
+            <label><input type="radio" name="question-1">Hypertext Markdown Language</label>
+            <label><input type="radio" name="question-1">Hyperloop Machine Language</label>
+            <label><input type="radio" name="question-1">Helicopters Terminals Motorboats Lamborginis</label>
+        </div>
+        <button class="submit">Submit</button>
+    </div>
+    <div class="quiz-card hidden" id="4">
+        <h2 class="question">What year was JavaScript launched?</h2>
+        <div class="answers">
+            <label><input type="radio" name="question-1">1996</label>
+            <label><input type="radio" name="question-1">1995</label>
+            <label><input type="radio" name="question-1">1994</label>
+            <label><input type="radio" name="question-1">none of the above</label>
+        </div>
+        <button class="submit">Submit</button>
+    </div>
+    <div class="quiz-result hidden">
+        <h2>You answered <span></span>/4 questions correctly</h2>
+        <button class="reload">Reload</button>
+    </div>
+    <!--  -->
+    <script>
+
+        const questions = [
+            { questionNumber: 1, rightanswer: 'JavaScript' },
+            { questionNumber: 2, rightanswer: 'Cascading Style Sheets' },
+            { questionNumber: 3, rightanswer: 'Hypertext Markup Language' },
+            { questionNumber: 4, rightanswer: '1995' },
+        ]
+        let submitBtns = document.querySelectorAll('.submit')
+        let reloadBtn = document.querySelector('.reload')
+        let quizCards = document.querySelectorAll('.quiz-card')
+        let quizResult = document.querySelector('.quiz-result')
+
+
+        let score = 0
+        let currentQuestion = 0
+        function submit(event) {
+            let questionNumber = event.srcElement.parentElement.attributes.id.value
+            let answer = Array.from(event.srcElement.parentElement.children[1].children).find((label) => {
+                return label.firstElementChild.checked;
+            })
+            if (answer == undefined) return;
+            let answerValue = answer.textContent
+            let question = questions.find((question) => questionNumber == question.questionNumber)
+            let isTrue = answerValue == question.rightanswer
+            if (isTrue) score++
+            next(++currentQuestion)
+        }
+        function next(to) {
+            quizCards.forEach((quizCard) => { quizCard.classList.add('hidden') })
+            if (to < quizCards.length) {
+                quizCards[to].classList.remove('hidden')
+            }
+            else {
+                quizResult.firstElementChild.firstElementChild.textContent = score ?? 0
+                quizResult.classList.remove('hidden')
+            }
+        }
+        submitBtns.forEach((submitBtn) => {
+            submitBtn.onclick = submit
+        })
+        reloadBtn.onclick = () => {
+            quizCards.forEach((quizCard) => { quizCard.classList.add('hidden') })
+            quizResult.classList.add('hidden')
+            quizCards[0].classList.remove('hidden')
+            currentQuestion = 0
+            score = 0
+        }
+    </script>
+    <script src="https://kit.fontawesome.com/45e02735af.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

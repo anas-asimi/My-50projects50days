@@ -14,3 +14,4 @@ Day 8   : 1 projects
 Day 9   : 5 projects   
 Day 10  : 5 projects   
 Day 11  : 5 projects   
+Day 12  : 1 projects   
