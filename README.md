@@ -1,6 +1,7 @@
 # My-50projects50days
 50 Projects in 50 Days - HTML/CSS and JavaScript  
 [origin repository](https://github.com/bradtraversy/50projects50days)
+My mini projects is live [here](https://anas-asimi.github.io/My-50projects50days/)
 
 Day 1   : 3 projects   
 Day 2   : 6 projects   
