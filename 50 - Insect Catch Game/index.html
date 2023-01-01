@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catch The Insect</title>
+</head>
+
+<body>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Press Start 2P', sans-serif;
+            font-weight: 400;
+            user-select: none;
+            list-style: none;
+        }
+
+        body {
+            height: 100vh;
+            background-color: lightseagreen;
+            overflow: hidden;
+        }
+
+        .container {
+            position: absolute;
+            height: 100vh;
+            width: 100%;
+            top: 0;
+            left: 0;
+            transition: top 0.5s;
+        }
+
+
+        .container>div {
+            height: 100vh;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .game-home {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 32px;
+            color: white;
+        }
+
+        .game-home h1 {
+            text-align: center;
+        }
+
+        .game-home button {
+            height: 40px;
+            padding: 0 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            color: lightseagreen;
+            border: 1px solid white;
+            cursor: pointer;
+        }
+
+        .game-home button:hover {
+            background-color: lightseagreen;
+            color: white;
+            transition: 0.3s;
+        }
+
+        .game-menu {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 32px;
+            color: white;
+        }
+
+        .game-menu h1 {
+            text-align: center;
+        }
+
+        .game-menu .choices {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 32px;
+        }
+
+        .game-menu .choices .choice {
+            height: 140px;
+            aspect-ratio: 1/1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            border: 2px solid white;
+        }
+
+        .game-menu .choices .choice:hover {
+            background-color: white;
+            color: lightseagreen;
+        }
+
+        .game-menu .choices .choice img {
+            height: 90px;
+            aspect-ratio: 1/1;
+            object-fit: contain;
+        }
+
+        .game-main {
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            color: white;
+        }
+
+        .inset {
+            position: absolute;
+            height: 80px;
+            width: 80px;
+            translate: -50% -50%;
+            object-fit: contain;
+            z-index: 10;
+            -webkit-user-drag: none;
+            cursor: pointer;
+        }
+    </style>
+    <!--  -->
+    <div class="container">
+        <div class="game-home ">
+            <h1>Catch The Insect</h1>
+            <button>Start</button>
+        </div>
+        <div class="game-menu">
+            <h1>What is your "favorite" insect?</h1>
+            <div class="choices">
+                <div class="choice" inset="fly">
+                    <p>Fly</p>
+                    <img src="http://pngimg.com/uploads/fly/fly_PNG3946.png">
+                </div>
+                <div class="choice" inset="mosquito">
+                    <p>Mosquito</p>
+                    <img src="http://pngimg.com/uploads/mosquito/mosquito_PNG18175.png">
+                </div>
+                <div class="choice" inset="spider">
+                    <p>Spider</p>
+                    <img src="http://pngimg.com/uploads/spider/spider_PNG12.png">
+                </div>
+                <div class="choice" inset="roach">
+                    <p>Roach</p>
+                    <img src="http://pngimg.com/uploads/roach/roach_PNG12163.png">
+                </div>
+            </div>
+        </div>
+        <div class="game-main">
+            <p>Time : <span class="minutes">00</span>:<span class="seconds">00</span></p>
+            <p>Score : <span class="score">0</span></p>
+        </div>
+    </div>
+
+    <!--  -->
+    <script>
+
+        let score = 0;
+        let time = 0;
+        let chosenInset;
+
+        const imageLinks = {
+            fly: 'http://pngimg.com/uploads/fly/fly_PNG3946.png',
+            mosquito: 'http://pngimg.com/uploads/mosquito/mosquito_PNG18175.png',
+            spider: 'http://pngimg.com/uploads/spider/spider_PNG12.png',
+            roach: 'http://pngimg.com/uploads/roach/roach_PNG12163.png',
+        }
+
+        let container = document.querySelector('.container');
+
+        let homeBtn = document.querySelector('.game-home button');
+        homeBtn.onclick = () => {
+            container.style.top = '-100vh'
+        }
+
+        let insetBtns = document.querySelectorAll('.game-menu .choices .choice');
+        insetBtns.forEach((insetBtn) => {
+            insetBtn.onclick = () => {
+                removePreviuosInset()
+                chosenInset = insetBtn.getAttribute('inset')
+                container.style.top = '-200vh'
+                showInset(chosenInset)
+                setTimeout(function fun() {
+                    time++
+                    let minutes = String(parseInt(time / 60))
+                    let seconds = String(time % 60)
+                    document.querySelector('.game-main .minutes').innerHTML = minutes.length == 1 ? '0' + minutes : minutes;
+                    document.querySelector('.game-main .seconds').innerHTML = seconds.length == 1 ? '0' + seconds : seconds;
+                    setTimeout(fun, 1000);
+                }, 1000)
+            }
+        });
+
+        function showInset(chosenInset) {
+            document.body.innerHTML += `<img class="inset" style="top : ${randomNumber()}%;left : ${randomNumber()}%;" src="${imageLinks[chosenInset]}">`
+        }
+
+        function randomNumber() {
+            return parseInt(Math.random() * 90 + 5)
+        }
+
+        function removePreviuosInset() {
+            let previuosInset = document.querySelectorAll('.inset')
+            previuosInset.forEach((ele) => { ele.remove() })
+        }
+        document.body.onclick = (event) => {
+            if (event.target.classList.contains('inset')) {
+                event.target.remove()
+                setTimeout(() => {
+                    showInset(chosenInset)
+                    setTimeout(() => {
+                        showInset(chosenInset)
+                    }, 500)
+                }, 500)
+                document.querySelector('.game-main span.score').innerHTML = ++score
+            }
+        }
+    </script>
+</body>
+
+</html>
