@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+</head>
+
+<body>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            user-select: none;
+            list-style: none;
+        }
+
+        body {
+            min-height: 100vh;
+            padding: 32px;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            gap: 16px;
+            background-color: rgb(240, 240, 240);
+        }
+
+        .background {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            translate: -50% -50%;
+            font-size: 256px;
+            font-weight: 500;
+            color: rgba(0, 0, 0, 0.03);
+            z-index: -1;
+        }
+
+        #input {
+            height: 48px;
+            width: 400px;
+            font-size: large;
+            outline: none;
+            background-color: transparent;
+            border: 1px solid rgb(190, 190, 190);
+            border-radius: 48px;
+            padding: 0 24px;
+        }
+
+        #input::placeholder {
+            color: rgb(190, 190, 190);
+        }
+
+        .hint{
+            color: rgb(150, 150, 150);
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .todo {
+            position: relative;
+            width: 400px;
+            font-size: large;
+            background-color: rgba(255, 255, 255, 0.5);
+            color: rgb(50, 50, 50);
+            padding: 16px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .todo.completed {
+            text-decoration: line-through;
+            color: rgb(150, 150, 150);
+        }
+
+        .todo .left {
+            position: absolute;
+            content: '';
+            height: 100%;
+            width: 50%;
+            top: 0;
+            left: 0;
+        }
+
+        .todo .right {
+            position: absolute;
+            content: '';
+            height: 100%;
+            width: 50%;
+            top: 0;
+            right: 0;
+        }
+    </style>
+    <!--  -->
+    <div class="background">TODOS</div>
+    <h1>Random Image Feed</h1>
+    <input type="text" id="input" placeholder="Enter your todo here">
+    <p class="hint">Left click to toggle completed, Right click to delete todo</p>
+    <div class="container">
+    </div>
+    <!--  -->
+    <script>
+        let todoInput = document.querySelector('#input')
+        let container = document.querySelector('.container')
+
+        todoInput.onkeypress = (event) => {
+            if (event.key == "Enter") {
+                let text = event.srcElement.value
+                if (text == "") return;
+                let todo = `
+                    <div class="todo">
+                        ${text}
+                        <div class="left"></div>
+                        <div class="right"></div>
+                    </div>
+                `
+                event.srcElement.value = ''
+                container.innerHTML += todo
+                update()
+            };
+
+        }
+        function update() {
+            let leftBtns = document.querySelectorAll('.left');
+            let rightBtns = document.querySelectorAll('.right');
+            leftBtns.forEach((leftBtn)=>{
+                leftBtn.onclick = (e)=>{
+                    e.srcElement.parentElement.classList.toggle('completed')
+                }
+            })
+            rightBtns.forEach((rightBtn)=>{
+                rightBtn.onclick = (e)=>{
+                    e.srcElement.parentElement.remove()
+                }
+            })
+        }
+    </script>
+</body>
+</html>
